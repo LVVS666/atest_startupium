@@ -6,12 +6,15 @@ from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+
 
 
 load_dotenv()
 
 
 class TestAuth:
+
     test_name = 'Test_name'
     test_email = 'Test_email@gmail.ru'
     test_password = 'Password1!'
@@ -104,3 +107,31 @@ class TestAuth:
             EC.presence_of_element_located((By.XPATH, "//p[contains(text(), 'Обязательно для заполнения')]")))
         message_element = browser_activate.find_element(By.XPATH, "//p[contains(text(), 'Обязательно для заполнения')]")
         assert message_element is not None, 'Сообщение о незаполненном поле имени не появилось'
+
+    def test_all_form_not_email(self, browser_activate):
+        '''Проверка незаполненного поля имени'''
+        browser_activate.get('https://startupium.ru/create-account')
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Введите имя"]')))
+        element_name = browser_activate.find_element(By.XPATH, '//input[@placeholder="Введите имя"]')
+        element_name.send_keys(self.test_name)
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Придумайте пароль"]')))
+        element_password1 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Придумайте пароль"]')
+        element_password1.send_keys(self.test_password)
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Повторите пароль"]')))
+        element_password2 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Повторите пароль"]')
+        element_password2.send_keys(self.test_password)
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Повторите пароль"]')))
+        button = browser_activate.find_element(By.CLASS_NAME, 'MuiButton-containedPrimary')
+        button.click()
+        WebDriverWait(browser_activate, 10).until(
+                EC.visibility_of_all_elements_located(
+                    (By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")))
+        form_elements = browser_activate.find_element(By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")
+        assert form_elements is not None, 'Сообщение о незаполненном поле email не появилось'
+
+
+
