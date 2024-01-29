@@ -6,8 +6,6 @@ from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-
 
 
 load_dotenv()
@@ -99,8 +97,6 @@ class TestAuth:
             EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Повторите пароль"]')))
         element_password2 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Повторите пароль"]')
         element_password2.send_keys(self.test_password)
-        WebDriverWait(browser_activate, 10).until(
-            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Повторите пароль"]')))
         button = browser_activate.find_element(By.CLASS_NAME, 'MuiButton-containedPrimary')
         button.click()
         WebDriverWait(browser_activate, 10).until(
@@ -109,7 +105,7 @@ class TestAuth:
         assert message_element is not None, 'Сообщение о незаполненном поле имени не появилось'
 
     def test_all_form_not_email(self, browser_activate):
-        '''Проверка незаполненного поля имени'''
+        '''Проверка незаполненного поля email'''
         browser_activate.get('https://startupium.ru/create-account')
         WebDriverWait(browser_activate, 10).until(
             EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Введите имя"]')))
@@ -132,6 +128,112 @@ class TestAuth:
                     (By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")))
         form_elements = browser_activate.find_element(By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")
         assert form_elements is not None, 'Сообщение о незаполненном поле email не появилось'
+
+    def test_all_form_not_password(self, browser_activate):
+        '''Проверка незаполненного поля ввода пароля'''
+        browser_activate.get('https://startupium.ru/create-account')
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Введите имя"]')))
+        element_name = browser_activate.find_element(By.XPATH, '//input[@placeholder="Введите имя"]')
+        element_name.send_keys(self.test_name)
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Введите email"]')))
+        element_email = browser_activate.find_element(By.XPATH, '//input[@placeholder="Введите email"]')
+        element_email.send_keys(self.test_email)
+        button = browser_activate.find_element(By.CLASS_NAME, 'MuiButton-containedPrimary')
+        button.click()
+        WebDriverWait(browser_activate, 10).until(
+            EC.visibility_of_all_elements_located(
+                (By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")))
+        form_elements = browser_activate.find_element(By.XPATH,
+                                                      "//span[contains(text(), 'Обязательно для заполнения')]")
+        assert form_elements is not None, 'Сообщение о незаполненном поле пароля не появилось'
+
+    def test_all_form_not_password_repeat(self, browser_activate):
+        '''Проверка незаполненного поля повторного ввода пароля'''
+        browser_activate.get('https://startupium.ru/create-account')
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Введите имя"]')))
+        element_name = browser_activate.find_element(By.XPATH, '//input[@placeholder="Введите имя"]')
+        element_name.send_keys(self.test_name)
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Введите email"]')))
+        element_email = browser_activate.find_element(By.XPATH, '//input[@placeholder="Введите email"]')
+        element_email.send_keys(self.test_email)
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Придумайте пароль"]')))
+        element_password1 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Придумайте пароль"]')
+        element_password1.send_keys(self.test_password)
+        button = browser_activate.find_element(By.CLASS_NAME, 'MuiButton-containedPrimary')
+        button.click()
+        WebDriverWait(browser_activate, 10).until(
+            EC.visibility_of_all_elements_located(
+                (By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")))
+        form_elements = browser_activate.find_element(By.XPATH,
+                                                      "//span[contains(text(), 'Обязательно для заполнения')]")
+        assert form_elements is not None, 'Сообщение о незаполненном поле повторного пароля не появилось'
+
+    def test_form_password_not_number(self, browser_activate):
+        '''Проверка появления уведомления об отсуствие цифр в пароле'''
+        browser_activate.get('https://startupium.ru/create-account')
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Придумайте пароль"]')))
+        element_password1 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Придумайте пароль"]')
+        element_password1.send_keys('test_password')
+        WebDriverWait(browser_activate, 10).until(
+            EC.visibility_of_all_elements_located(
+                (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одной цифры.')]")))
+        form_elements = browser_activate.find_element(By.XPATH,
+                                                      "//span[contains(text(), 'Должен содержать не менее одной цифры.')]")
+        assert form_elements is not None, 'Сообщение о не валидности пароля не появилось'
+
+    def test_form_password_not_upper_leng(self, browser_activate):
+        '''Проверка появления уведомления об отсуствие прописной буквы в пароле'''
+        browser_activate.get('https://startupium.ru/create-account')
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Придумайте пароль"]')))
+        element_password1 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Придумайте пароль"]')
+        element_password1.send_keys('test_password1')
+        WebDriverWait(browser_activate, 10).until(
+            EC.visibility_of_all_elements_located(
+                (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одной прописной буквы.')]")))
+        form_elements = browser_activate.find_element(By.XPATH,
+                                                      "//span[contains(text(), 'Должен содержать не менее одной прописной буквы.')]")
+        assert form_elements is not None, 'Сообщение о не валидности пароля не появилось'
+
+    def test_form_password_not_symbol(self, browser_activate):
+        '''Проверка появления уведомления об отсуствие символа в пароле'''
+        browser_activate.get('https://startupium.ru/create-account')
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Придумайте пароль"]')))
+        element_password1 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Придумайте пароль"]')
+        element_password1.send_keys('Testpassword1')
+        WebDriverWait(browser_activate, 10).until(
+            EC.visibility_of_all_elements_located(
+                (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одного символа.')]")))
+        form_elements = browser_activate.find_element(By.XPATH,
+                                                      "//span[contains(text(), 'Должен содержать не менее одного символа.')]")
+        assert form_elements is not None, 'Сообщение о не валидности пароля не появилось'
+
+
+    def test_password_mismatch(self, browser_activate):
+        '''Проверка появления уведомления об несовпадение пароля в поле повторного пароля'''
+        browser_activate.get('https://startupium.ru/create-account')
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Придумайте пароль"]')))
+        element_password1 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Придумайте пароль"]')
+        element_password1.send_keys('Test_password1')
+        WebDriverWait(browser_activate, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Повторите пароль"]')))
+        element_password2 = browser_activate.find_element(By.XPATH, '//input[@placeholder="Повторите пароль"]')
+        element_password2.send_keys('Test_password2')
+        WebDriverWait(browser_activate, 10).until(
+            EC.visibility_of_all_elements_located(
+                (By.XPATH, "//span[contains(text(), 'Пароли не совпадают.')]")))
+        form_elements = browser_activate.find_element(By.XPATH,
+                                                      "//span[contains(text(), 'Пароли не совпадают.')]")
+        assert form_elements is not None, 'Сообщение о не совпадение паролей'
+
 
 
 
