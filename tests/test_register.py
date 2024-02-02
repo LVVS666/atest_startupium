@@ -15,8 +15,8 @@ from page.register import (
     warning_form_not_password
 )
 
-test_name = 'Test_name'
-test_email = 'Test_email@gmail.ru'
+test_name = 'test_name'
+test_email = 'test_email@gmail.ru'
 test_password = 'Password1!'
 
 def test_status_code():

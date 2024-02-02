@@ -8,3 +8,4 @@ def browser():
     driver = Chrome()
     yield driver
     driver.quit()
+
