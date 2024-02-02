@@ -1,7 +1,6 @@
-import time
-
 import requests
 
+from tempmail import TempMail
 from random import randint
 from page.register import (
     Register,
@@ -251,3 +250,6 @@ def test_repeat_user(browser):
         return error_register_repeat
     repeat_register = register_on(browser)
     assert repeat_register is not None, 'Повторная регистрация с зарегистрированным email удалась'
+
+def test_open_message_to_email(browser):
+    pass
