@@ -10,6 +10,7 @@ email_form_path = (By.XPATH, '//input[@placeholder="Введите email"]')
 password_form_path = (By.XPATH, '//input[@placeholder="Придумайте пароль"]')
 password_repeat_path = (By.XPATH, '//input[@placeholder="Повторите пароль"]')
 button_class = (By.CLASS_NAME, 'MuiButton-containedPrimary')
+warning_form_path_name = (By.XPATH, "//p[contains(text(), 'Обязательно для заполнения')]")
 warning_form_path = (By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")
 warning_form_password_number = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одной цифры.')]")
 warning_form_password_lenght = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одной прописной буквы.')]")
@@ -28,15 +29,3 @@ class Register(BasePage):
     def wait_element(self, selector, time=10):
         WebDriverWait(self.browser, time).until(
             EC.presence_of_element_located(selector))
-
-    def form_name(self):
-        return self.find(name_form_path)
-
-    def form_email(self):
-        return self.find(email_form_path)
-
-    def form_password(self):
-        return self.find(password_form_path)
-
-    def form_password_repeat(self):
-        return self.find(password_repeat_path)

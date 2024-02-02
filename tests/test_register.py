@@ -12,7 +12,7 @@ from page.register import (
     password_form_path,
     warning_form_password_sybmol,
     warning_form_path,
-    warning_form_not_password
+    warning_form_not_password, warning_form_path_name
 )
 
 test_name = 'test_name'
@@ -31,7 +31,7 @@ def test_open_site(browser):
         register_page.open()
         register_page.wait_element(name_page)
         element_text = register_page.find(name_page)
-        assert element_text == 'Создание аккаунта', 'Текст на странице не соответствует'
+        assert element_text.text == 'Создание аккаунта', 'Текст на странице не соответствует'
 
 
 def test_form_name(browser):
@@ -93,8 +93,8 @@ def test_all_form_not_name(browser):
         password_rep_element.send_keys(test_password)
         button = register_page.find(button_class)
         button.click()
-        register_page.wait_element(warning_form_path)
-        message_error = register_page.find(warning_form_path)
+        register_page.wait_element(warning_form_path_name)
+        message_error = register_page.find(warning_form_path_name)
         assert message_error is not None, 'Сообщение о незаполненном поле имени не появилось'
 
 
@@ -128,8 +128,6 @@ def test_all_form_not_password(browser):
     email_element = register_page.find(email_form_path)
     email_element.send_keys(test_email)
     register_page.wait_element(password_repeat_path)
-    password_rep_element = register_page.find(password_repeat_path)
-    password_rep_element.send_keys(test_password)
     button = register_page.find(button_class)
     button.click()
     register_page.wait_element(warning_form_path)
