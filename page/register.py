@@ -1,7 +1,6 @@
 from .base_page import BasePage
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 
 complete_register = (By.CSS_SELECTOR, 'h2.MuiTypography-root.MuiTypography-h2.css-1cabzw6')
 name_page = (By.CSS_SELECTOR, 'h3.MuiTypography-root.MuiTypography-h3.css-1ea1e2g')
@@ -27,6 +26,4 @@ class Register(BasePage):
     def open(self):
         self.browser.get(url='https://startupium.ru/create-account')
 
-    def wait_element(self, selector, time=10):
-        WebDriverWait(self.browser, time).until(
-            EC.presence_of_element_located(selector))
+
