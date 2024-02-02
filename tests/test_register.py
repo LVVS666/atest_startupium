@@ -1,6 +1,6 @@
 import requests
 
-from tempmail import TempMail
+from tempmail import EMail
 from random import randint
 from page.register import (
     Register,
@@ -251,5 +251,25 @@ def test_repeat_user(browser):
     repeat_register = register_on(browser)
     assert repeat_register is not None, 'Повторная регистрация с зарегистрированным email удалась'
 
-def test_open_message_to_email(browser):
-    pass
+# def test_open_message_to_email(browser):
+#     '''Проверка отправки сообщения на почту'''
+#     email = EMail()
+#     register_page = Register(browser)
+#     register_page.open()
+#     register_page.wait_element(name_form_path)
+#     element_name = register_page.find(name_form_path)
+#     element_name.send_keys(test_name)
+#     register_page.wait_element(email_form_path)
+#     email_element = register_page.find(email_form_path)
+#     email_element.send_keys(str(email))
+#     register_page.wait_element(password_form_path)
+#     password_element = register_page.find(password_form_path)
+#     password_element.send_keys(test_password)
+#     register_page.wait_element(password_repeat_path)
+#     password_repeat_element = register_page.find(password_repeat_path)
+#     password_repeat_element.send_keys(test_password)
+#     register_page.wait_element(button_class)
+#     button = register_page.find(button_class)
+#     button.click()
+#     browser.quit()
+#     assert email.wait_for_message(timeout=60) is None, 'Сообщение не пришло на почту'
