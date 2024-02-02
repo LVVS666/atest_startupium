@@ -1,7 +1,6 @@
 import requests
 
 from tempmail import EMail
-from random import randint
 from page.register import (
     Register,
     name_page,
@@ -17,9 +16,11 @@ from page.register import (
     warning_form_not_password, warning_form_path_name, complete_register, warning_not_register
 )
 
+
 test_name = 'test_name'
-test_email = f'test_email{randint(0,1000000)}@gmail.ru'
+test_email = str(EMail())
 test_password = 'Password1!'
+
 
 def test_status_code():
     '''Проверка ответа сервера == 200'''
