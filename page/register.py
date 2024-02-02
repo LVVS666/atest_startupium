@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
+complete_register = (By.CSS_SELECTOR, 'h2.MuiTypography-root.MuiTypography-h2.css-1cabzw6')
 name_page = (By.CSS_SELECTOR, 'h3.MuiTypography-root.MuiTypography-h3.css-1ea1e2g')
 name_form_path = (By.XPATH, '//input[@placeholder="Введите имя"]')
 email_form_path = (By.XPATH, '//input[@placeholder="Введите email"]')
@@ -16,6 +17,7 @@ warning_form_password_number = (By.XPATH, "//span[contains(text(), 'Должен
 warning_form_password_lenght = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одной прописной буквы.')]")
 warning_form_password_sybmol = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одного символа.')]")
 warning_form_not_password = (By.XPATH, "//span[contains(text(), 'Пароли не совпадают.')]")
+warning_not_register = (By.CSS_SELECTOR, 'p.css-3zhtyq')
 
 
 class Register(BasePage):

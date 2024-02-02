@@ -1,5 +1,8 @@
+import time
+
 import requests
 
+from random import randint
 from page.register import (
     Register,
     name_page,
@@ -12,11 +15,11 @@ from page.register import (
     password_form_path,
     warning_form_password_sybmol,
     warning_form_path,
-    warning_form_not_password, warning_form_path_name
+    warning_form_not_password, warning_form_path_name, complete_register, warning_not_register
 )
 
 test_name = 'test_name'
-test_email = 'test_email@gmail.ru'
+test_email = f'test_email{randint(0,1000000)}@gmail.ru'
 test_password = 'Password1!'
 
 def test_status_code():
@@ -127,7 +130,6 @@ def test_all_form_not_password(browser):
     register_page.wait_element(email_form_path)
     email_element = register_page.find(email_form_path)
     email_element.send_keys(test_email)
-    register_page.wait_element(password_repeat_path)
     button = register_page.find(button_class)
     button.click()
     register_page.wait_element(warning_form_path)
@@ -200,3 +202,52 @@ def test_password_mismatch(browser):
         register_page.wait_element(warning_form_not_password)
         form_elements = register_page.find(warning_form_not_password)
         assert form_elements is not None, 'Сообщение о не совпадение паролей'
+
+def test_complete_register(browser):
+    '''Проверка успешной регистрации при валидных данных'''
+    register_page = Register(browser)
+    register_page.open()
+    register_page.wait_element(name_form_path)
+    element_name = register_page.find(name_form_path)
+    element_name.send_keys(test_name)
+    register_page.wait_element(email_form_path)
+    email_element = register_page.find(email_form_path)
+    email_element.send_keys(test_email)
+    register_page.wait_element(password_form_path)
+    password_element = register_page.find(password_form_path)
+    password_element.send_keys(test_password)
+    register_page.wait_element(password_repeat_path)
+    password_repeat_element = register_page.find(password_repeat_path)
+    password_repeat_element.send_keys(test_password)
+    button = register_page.find(button_class)
+    button.click()
+    register_page.wait_element(complete_register)
+    complete_element = register_page.find(complete_register)
+    assert complete_element is not None, 'Сообщение об успешной регистрации не появилось'
+
+def test_repeat_user(browser):
+    '''Проверка повторной регистрации для созданного пользователя'''
+    def register_on(browser):
+        register_page = Register(browser)
+        register_page.open()
+        register_page.wait_element(name_form_path)
+        element_name = register_page.find(name_form_path)
+        element_name.send_keys(test_name)
+        register_page.wait_element(email_form_path)
+        email_element = register_page.find(email_form_path)
+        email_element.send_keys('test_email@gmail.com')
+        register_page.wait_element(password_form_path)
+        password_element = register_page.find(password_form_path)
+        password_element.send_keys(test_password)
+        register_page.wait_element(password_repeat_path)
+        password_repeat_element = register_page.find(password_repeat_path)
+        password_repeat_element.send_keys(test_password)
+        register_page.wait_element(button_class)
+        button = register_page.find(button_class)
+        button.click()
+        button.click()
+        register_page.wait_element(warning_not_register)
+        error_register_repeat = register_page.find(warning_not_register)
+        return error_register_repeat
+    repeat_register = register_on(browser)
+    assert repeat_register is not None, 'Повторная регистрация с зарегистрированным email удалась'
