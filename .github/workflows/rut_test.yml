@@ -1,4 +1,4 @@
-name: autometed tests
+name: Autometed Tests
 
 on:
   push
@@ -7,15 +7,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: setup python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: install chrome
+      - name: Install Chrome
         run: sudo apt-get install google-chrome-stable
-      - name: install dependencies
+      - name: Install Dependencies
         run: pip install -r requierements.txt
-      - name: run tests
+      - name: Run Tests
         run: pytest
+
