@@ -1,5 +1,6 @@
 import requests
 
+from random import randint
 from tempmail import EMail
 from page.register import (
     Register,
@@ -18,7 +19,7 @@ from page.register import (
 
 
 test_name = 'test_name'
-test_email = str(EMail())
+test_email = f'test_mail{randint(0,10000)}@gmail.com'
 test_password = 'Password1!'
 
 
