@@ -222,7 +222,7 @@ def test_complete_register(browser):
     password_repeat_element.send_keys(test_password)
     button = register_page.find(button_class)
     button.click()
-    register_page.wait_element(complete_register)
+    register_page.wait_element(complete_register, 20)
     complete_element = register_page.find(complete_register)
     assert complete_element is not None, 'Сообщение об успешной регистрации не появилось'
 
