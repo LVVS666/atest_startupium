@@ -5,3 +5,17 @@ on:
 
 jobs:
   test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+        python-versions: '3.11'
+      - name: install chrome
+        run: sudo apt-get install google-chrome-stable
+      - name: install dependencies
+        run: pip install - requierements.txt
+      - name: run tests
+        run: pytest
