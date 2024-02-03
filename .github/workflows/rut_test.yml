@@ -12,7 +12,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v4
         with:
-        python-versions: '3.11'
+          python-version: '3.11'
       - name: install chrome
         run: sudo apt-get install google-chrome-stable
       - name: install dependencies
