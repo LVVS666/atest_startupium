@@ -24,6 +24,6 @@ class Register(BasePage):
         super().__init__(browser)
 
     def open(self):
-        self.browser.get(url='https://startupium.ru/create-account')
+        self.browser.get(url='https://test.startupium.ru/create-account')
 
 

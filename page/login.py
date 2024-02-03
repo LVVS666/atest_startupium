@@ -22,4 +22,4 @@ class Login(BasePage):
         super().__init__(browser)
 
     def open(self):
-        self.browser.get(url='https://startupium.ru/login')
+        self.browser.get(url='https://test.startupium.ru/login')

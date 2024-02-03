@@ -19,7 +19,7 @@ def test_login(browser):
     button.click()
     time.sleep(5)
     current_url = login_page.browser.current_url
-    assert current_url == 'https://startupium.ru/registration', 'Редирект не произошел'
+    assert current_url == 'https://test.startupium.ru/registration', 'Редирект не произошел'
 
 def test_login_email_not_valid(browser):
     '''Проверка логина при невалидном email'''

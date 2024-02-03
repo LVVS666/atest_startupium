@@ -204,27 +204,27 @@ def test_password_mismatch(browser):
         form_elements = register_page.find(warning_form_not_password)
         assert form_elements is not None, 'Сообщение о не совпадение паролей'
 
-# def test_complete_register(browser):
-#     '''Проверка успешной регистрации при валидных данных'''
-#     register_page = Register(browser)
-#     register_page.open()
-#     register_page.wait_element(name_form_path)
-#     element_name = register_page.find(name_form_path)
-#     element_name.send_keys(test_name)
-#     register_page.wait_element(email_form_path)
-#     email_element = register_page.find(email_form_path)
-#     email_element.send_keys(test_email)
-#     register_page.wait_element(password_form_path)
-#     password_element = register_page.find(password_form_path)
-#     password_element.send_keys(test_password)
-#     register_page.wait_element(password_repeat_path)
-#     password_repeat_element = register_page.find(password_repeat_path)
-#     password_repeat_element.send_keys(test_password)
-#     button = register_page.find(button_class)
-#     button.click()
-#     register_page.wait_element(complete_register)
-#     complete_element = register_page.find(complete_register)
-#     assert complete_element is not None, 'Сообщение об успешной регистрации не появилось'
+def test_complete_register(browser):
+    '''Проверка успешной регистрации при валидных данных'''
+    register_page = Register(browser)
+    register_page.open()
+    register_page.wait_element(name_form_path)
+    element_name = register_page.find(name_form_path)
+    element_name.send_keys(test_name)
+    register_page.wait_element(email_form_path)
+    email_element = register_page.find(email_form_path)
+    email_element.send_keys(test_email)
+    register_page.wait_element(password_form_path)
+    password_element = register_page.find(password_form_path)
+    password_element.send_keys(test_password)
+    register_page.wait_element(password_repeat_path)
+    password_repeat_element = register_page.find(password_repeat_path)
+    password_repeat_element.send_keys(test_password)
+    button = register_page.find(button_class)
+    button.click()
+    register_page.wait_element(complete_register, time=20)
+    complete_element = register_page.find(complete_register)
+    assert complete_element is not None, 'Сообщение об успешной регистрации не появилось'
 
 def test_repeat_user(browser):
     '''Проверка повторной регистрации для созданного пользователя'''
