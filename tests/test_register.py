@@ -1,7 +1,9 @@
+import time
+
 import requests
 
+from fixtures.email_generation import generate_email, get_message
 from random import randint
-from tempmail import EMail
 from page.register import (
     Register,
     name_page,
@@ -14,7 +16,8 @@ from page.register import (
     password_form_path,
     warning_form_password_sybmol,
     warning_form_path,
-    warning_form_not_password, warning_form_path_name, complete_register, warning_not_register
+    warning_form_not_password, warning_form_path_name, complete_register, warning_not_register,
+    warning_form_not_leng_name
 )
 
 
@@ -82,6 +85,7 @@ def test_search_button(browser):
         button = register_page.find(button_class)
         assert button is not None, 'Кнопка подтверждения регистрации отсутствует'
 
+
 def test_all_form_not_name(browser):
         '''Проверка незаполненного поля имени'''
         register_page = Register(browser)
@@ -100,6 +104,18 @@ def test_all_form_not_name(browser):
         register_page.wait_element(warning_form_path_name)
         message_error = register_page.find(warning_form_path_name)
         assert message_error is not None, 'Сообщение о незаполненном поле имени не появилось'
+
+
+def test_name_two_leng(browser):
+    '''Проверка поля имени меньше двух букв'''
+    register_page = Register(browser)
+    register_page.open()
+    register_page.wait_element(name_form_path)
+    element_email = register_page.find(name_form_path)
+    element_email.send_keys('Qa')
+    register_page.wait_element(warning_form_not_leng_name)
+    message_error = register_page.find(warning_form_not_leng_name)
+    assert message_error is not None, 'Сообщение не менее трех букв в имени не появилось'
 
 
 def test_all_form_not_email(browser):
@@ -121,6 +137,7 @@ def test_all_form_not_email(browser):
     message_error = register_page.find(warning_form_path)
     assert message_error is not None, 'Сообщение о незаполненном поле email не появилось'
 
+
 def test_all_form_not_password(browser):
     '''Проверка незаполненного поля пароля'''
     register_page = Register(browser)
@@ -136,6 +153,7 @@ def test_all_form_not_password(browser):
     register_page.wait_element(warning_form_path)
     message_error = register_page.find(warning_form_path)
     assert message_error is not None, 'Сообщение о незаполненном поле пароля не появилось'
+
 
 def test_all_form_not_password_repeat(browser):
     '''Проверка незаполненного поля пароля'''
@@ -155,6 +173,7 @@ def test_all_form_not_password_repeat(browser):
     register_page.wait_element(warning_form_path)
     message_error = register_page.find(warning_form_path)
     assert message_error is not None, 'Сообщение о незаполненном повторном поле пароля не появилось'
+
 
 def test_form_password_not_number(browser):
         '''Проверка появления уведомления об отсуствие цифр в пароле'''
@@ -179,6 +198,7 @@ def test_form_password_not_upper_leng(browser):
     form_elements = register_page.find(warning_form_password_lenght)
     assert form_elements is not None, 'Сообщение о не валидности пароля не появилось'
 
+
 def test_form_password_not_symbol(browser):
     '''Проверка появления уведомления об отсуствие символа в пароле'''
     register_page = Register(browser)
@@ -189,6 +209,7 @@ def test_form_password_not_symbol(browser):
     register_page.wait_element(warning_form_password_sybmol)
     form_elements = register_page.find(warning_form_password_sybmol)
     assert form_elements is not None, 'Сообщение о не валидности пароля не появилось'
+
 
 def test_password_mismatch(browser):
         '''Проверка появления уведомления об несовпадение пароля в поле повторного пароля'''
@@ -203,6 +224,7 @@ def test_password_mismatch(browser):
         register_page.wait_element(warning_form_not_password)
         form_elements = register_page.find(warning_form_not_password)
         assert form_elements is not None, 'Сообщение о не совпадение паролей'
+
 
 def test_complete_register(browser):
     '''Проверка успешной регистрации при валидных данных'''
@@ -225,6 +247,7 @@ def test_complete_register(browser):
     register_page.wait_element(complete_register, time=20)
     complete_element = register_page.find(complete_register)
     assert complete_element is not None, 'Сообщение об успешной регистрации не появилось'
+
 
 def test_repeat_user(browser):
     '''Проверка повторной регистрации для созданного пользователя'''
@@ -253,25 +276,28 @@ def test_repeat_user(browser):
     repeat_register = register_on(browser)
     assert repeat_register is not None, 'Повторная регистрация с зарегистрированным email удалась'
 
-# def test_open_message_to_email(browser):
-#     '''Проверка отправки сообщения на почту'''
-#     email = EMail()
-#     register_page = Register(browser)
-#     register_page.open()
-#     register_page.wait_element(name_form_path)
-#     element_name = register_page.find(name_form_path)
-#     element_name.send_keys(test_name)
-#     register_page.wait_element(email_form_path)
-#     email_element = register_page.find(email_form_path)
-#     email_element.send_keys(str(email))
-#     register_page.wait_element(password_form_path)
-#     password_element = register_page.find(password_form_path)
-#     password_element.send_keys(test_password)
-#     register_page.wait_element(password_repeat_path)
-#     password_repeat_element = register_page.find(password_repeat_path)
-#     password_repeat_element.send_keys(test_password)
-#     register_page.wait_element(button_class)
-#     button = register_page.find(button_class)
-#     button.click()
-#     browser.quit()
-#     assert email.wait_for_message(timeout=60) is None, 'Сообщение не пришло на почту'
+
+def test_open_message_to_email(browser):
+    '''Проверка отправки сообщения на почту'''
+    email = generate_email()
+    register_page = Register(browser)
+    register_page.open()
+    register_page.wait_element(name_form_path)
+    element_name = register_page.find(name_form_path)
+    element_name.send_keys(test_name)
+    register_page.wait_element(email_form_path)
+    email_element = register_page.find(email_form_path)
+    email_element.send_keys(str(email))
+    register_page.wait_element(password_form_path)
+    password_element = register_page.find(password_form_path)
+    password_element.send_keys(test_password)
+    register_page.wait_element(password_repeat_path)
+    password_repeat_element = register_page.find(password_repeat_path)
+    password_repeat_element.send_keys(test_password)
+    register_page.wait_element(button_class)
+    button = register_page.find(button_class)
+    button.click()
+    browser.quit()
+    message = get_message(email)
+    time.sleep(10)
+    assert message is not None, 'Сообщение не пришло на почту'
