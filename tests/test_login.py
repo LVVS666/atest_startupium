@@ -7,8 +7,9 @@ from page.login import (
     button_class,
     test_email,
     test_password,
-    error_email
+    error_email, button_register
 )
+from page.register import name_page
 
 
 def test_login(browser):
@@ -63,3 +64,15 @@ def test_login_password_not_valid(browser):
     login_page.wait_element(error_email)
     error_message = login_page.find(error_email)
     assert error_message is not None, 'Уведомления об ошибке не было'
+
+
+def test_redirect_register(browser):
+    '''Проверка перехода на страницу создания аккаунта'''
+    login_page = Login(browser)
+    login_page.open()
+    login_page.wait_element(button_register)
+    button = login_page.find(button_register)
+    button.click()
+    login_page.wait_element(name_page)
+    element_text = login_page.find(name_page)
+    assert element_text.text == 'Создание аккаунта', 'Редирект не произошел'
