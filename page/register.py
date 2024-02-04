@@ -20,7 +20,7 @@ warning_not_register = (By.CSS_SELECTOR, 'p.css-3zhtyq')
 
 
 class Register(BasePage):
-
+    '''Класс страницы регистрации'''
     def __init__(self, browser):
         super().__init__(browser)
 

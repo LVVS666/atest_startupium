@@ -1,7 +1,14 @@
 import time
 
-from page.login import Login, email_form, password_form, button_class, test_email, test_password, error_email
-
+from page.login import (
+    Login,
+    email_form,
+    password_form,
+    button_class,
+    test_email,
+    test_password,
+    error_email
+)
 
 
 def test_login(browser):
@@ -21,6 +28,7 @@ def test_login(browser):
     current_url = login_page.browser.current_url
     assert current_url == 'https://test.startupium.ru/registration', 'Редирект не произошел'
 
+
 def test_login_email_not_valid(browser):
     '''Проверка логина при невалидном email'''
     login_page = Login(browser)
@@ -37,6 +45,7 @@ def test_login_email_not_valid(browser):
     login_page.wait_element(error_email)
     error_message = login_page.find(error_email)
     assert error_message is not None, 'Уведомления об ошибке не было'
+
 
 def test_login_password_not_valid(browser):
     '''Проверка логина при невалидном пароле'''
