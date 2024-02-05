@@ -9,6 +9,8 @@ password_form = (By.XPATH, '//input[@placeholder="Введите пароль"]'
 button_class = (By.CLASS_NAME, 'MuiButton-containedPrimary')
 error_email = (By.CSS_SELECTOR, 'p.css-3zhtyq')
 button_register = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/div/a[2]')
+button_yandex_id_login = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/div/a[1]')
+yandex_form = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div/div/div[2]/div[3]/div/form/div[1]/div[1]/h1')
 
 
 class Login(BasePage):
