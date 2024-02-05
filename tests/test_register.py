@@ -304,6 +304,7 @@ def test_open_message_to_email(browser):
     time.sleep(10)
     assert message is not None, 'Сообщение не пришло на почту'
 
+
 def test_redirect_in_yandexid(browser):
     '''Тестирование регистрации через YandexID'''
     register = Register(browser)
