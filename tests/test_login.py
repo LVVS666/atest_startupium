@@ -81,9 +81,11 @@ def test_login_in_yandexid(browser):
     '''Тестирование входа через YandexID'''
     login_page = Login(browser)
     login_page.open()
+    time.sleep(5)
     login_page.wait_element(button_yandex_id_login)
     button = login_page.find(button_yandex_id_login)
     button.click()
+    time.sleep(5)
     login_page.wait_element(yandex_form)
     yandex_element = login_page.find(yandex_form)
     assert yandex_element is not None, 'Редирект на страницу входа YandexID не произошел'
