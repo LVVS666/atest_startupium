@@ -9,8 +9,11 @@ password_form = (By.XPATH, '//input[@placeholder="Введите пароль"]'
 button_class = (By.CLASS_NAME, 'MuiButton-containedPrimary')
 error_email = (By.CSS_SELECTOR, 'p.css-3zhtyq')
 button_register = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/div/a[2]')
-button_yandex_id_login = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/div/a[1]')
-yandex_form = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div/div/div[2]/div[3]/div/form/div[1]/div[1]/h1')
+reset_password = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/div/a[3]')
+email_form_reset = (By.CSS_SELECTOR, 'input[type="email"]')
+button_send_email_reset = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/form/button')
+complete_send_email_reset = (By.CSS_SELECTOR, 'button.MuiButton-containedPrimary')
+
 
 
 class Login(BasePage):

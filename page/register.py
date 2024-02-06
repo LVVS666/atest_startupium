@@ -9,7 +9,6 @@ email_form_path = (By.XPATH, '//input[@placeholder="Введите email"]')
 password_form_path = (By.XPATH, '//input[@placeholder="Придумайте пароль"]')
 password_repeat_path = (By.XPATH, '//input[@placeholder="Повторите пароль"]')
 button_class = (By.CLASS_NAME, 'MuiButton-containedPrimary')
-yandex_button_register = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/a')
 warning_form_not_leng_name = (By.XPATH, "//p[contains(text(), 'Минимум 3 символа')]")
 warning_form_path_name = (By.XPATH, "//p[contains(text(), 'Обязательно для заполнения')]")
 warning_form_path = (By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")
@@ -18,7 +17,7 @@ warning_form_password_lenght = (By.XPATH, "//span[contains(text(), 'Должен
 warning_form_password_sybmol = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одного символа.')]")
 warning_form_not_password = (By.XPATH, "//span[contains(text(), 'Пароли не совпадают.')]")
 warning_not_register = (By.CSS_SELECTOR, 'p.css-3zhtyq')
-capcha_robot = (By.XPATH, '//*[@id="js-button"]')
+
 
 
 class Register(BasePage):

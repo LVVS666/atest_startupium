@@ -7,7 +7,7 @@ from page.login import (
     button_class,
     test_email,
     test_password,
-    error_email, button_register, button_yandex_id_login, yandex_form
+    error_email, button_register, reset_password, email_form_reset, button_send_email_reset, complete_send_email_reset
 )
 from page.register import name_page
 
@@ -76,3 +76,33 @@ def test_redirect_register(browser):
     login_page.wait_element(name_page)
     element_text = login_page.find(name_page)
     assert element_text.text == 'Создание аккаунта', 'Редирект не произошел'
+
+
+def test_button_reset_password(browser):
+    '''Проверка кнопки сброса пароля '''
+    login_page = Login(browser)
+    login_page.open()
+    login_page.wait_element(reset_password)
+    button_reset = login_page.find(reset_password)
+    button_reset.click()
+    login_page.wait_element(email_form_reset)
+    form_email = login_page.find(email_form_reset)
+    assert form_email is not None, 'Кнопка сброса пароля не работает.'
+
+
+def test_reset_password(browser):
+    '''Проверка сброса пароля и отправка сообщения на почту'''
+    login_page = Login(browser)
+    login_page.open()
+    login_page.wait_element(reset_password)
+    button_reset = login_page.find(reset_password)
+    button_reset.click()
+    login_page.wait_element(email_form_reset)
+    form_email = login_page.find(email_form_reset)
+    form_email.send_keys(test_email)
+    login_page.wait_element(button_send_email_reset)
+    button_send_email = login_page.find(button_send_email_reset)
+    button_send_email.click()
+    login_page.wait_element(complete_send_email_reset)
+    message = login_page.find(complete_send_email_reset)
+    assert message is not None, 'Сообщение по сбросу пароля на почту не отправляется'
