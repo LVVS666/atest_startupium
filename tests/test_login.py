@@ -86,8 +86,8 @@ def test_login_in_yandexid(browser):
     button = login_page.find(button_yandex_id_login)
     button.click()
     time.sleep(5)
-    login.wait_element(yandex_form)
-    yandex_element = login.find(yandex_form)
+    login_page.wait_element(yandex_form)
+    yandex_element = login_page.find(yandex_form)
     assert yandex_element is not None, 'Редирект на страницу входа YandexID не произошел'
 
 
