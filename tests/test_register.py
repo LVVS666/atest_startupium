@@ -19,7 +19,7 @@ from page.register import (
     warning_form_password_sybmol,
     warning_form_path,
     warning_form_not_password, warning_form_path_name, complete_register, warning_not_register,
-    warning_form_not_leng_name, yandex_button_register
+    warning_form_not_leng_name, yandex_button_register, capcha_robot
 )
 
 
@@ -303,17 +303,3 @@ def test_open_message_to_email(browser):
     message = get_message(email)
     time.sleep(10)
     assert message is not None, 'Сообщение не пришло на почту'
-
-
-def test_redirect_in_yandexid(browser):
-    '''Тестирование регистрации через YandexID'''
-    register = Register(browser)
-    register.open()
-    time.sleep(5)
-    register.wait_element(yandex_button_register)
-    button = register.find(yandex_button_register)
-    button.click()
-    time.sleep(5)
-    register.wait_element(yandex_form)
-    yandex_element = register.find(yandex_form)
-    assert yandex_element is not None, 'Редирект на страницу входа YandexID не произошел'

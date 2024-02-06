@@ -18,6 +18,7 @@ warning_form_password_lenght = (By.XPATH, "//span[contains(text(), 'Должен
 warning_form_password_sybmol = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одного символа.')]")
 warning_form_not_password = (By.XPATH, "//span[contains(text(), 'Пароли не совпадают.')]")
 warning_not_register = (By.CSS_SELECTOR, 'p.css-3zhtyq')
+capcha_robot = (By.XPATH, '//*[@id="js-button"]')
 
 
 class Register(BasePage):
