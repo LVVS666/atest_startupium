@@ -5,7 +5,6 @@ import requests
 from fixtures.email_generation import generate_email, get_message
 from random import randint
 
-from page.login import yandex_form
 from page.register import (
     Register,
     name_page,
