@@ -19,7 +19,6 @@ warning_form_not_password = (By.XPATH, "//span[contains(text(), 'Пароли н
 warning_not_register = (By.CSS_SELECTOR, 'p.css-3zhtyq')
 
 
-
 class Register(BasePage):
     '''Класс страницы регистрации'''
     def __init__(self, browser):

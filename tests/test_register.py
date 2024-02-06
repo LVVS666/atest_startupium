@@ -18,7 +18,7 @@ from page.register import (
     warning_form_password_sybmol,
     warning_form_path,
     warning_form_not_password, warning_form_path_name, complete_register, warning_not_register,
-    warning_form_not_leng_name, yandex_button_register, capcha_robot
+    warning_form_not_leng_name
 )
 
 
