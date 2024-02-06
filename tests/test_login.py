@@ -84,7 +84,6 @@ def test_login_in_yandexid(browser):
     login_page.wait_element(button_yandex_id_login)
     button = login_page.find(button_yandex_id_login)
     button.click()
-    login_page.switch_to_window(login_page.window_handles[1])
     url = login_page.current_url
     assert 'https://oauth.yandex.ru/authorize' in url, 'Редирект на страницу входа YandexID не произошел'
 
