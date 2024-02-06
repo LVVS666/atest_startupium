@@ -309,9 +309,11 @@ def test_redirect_in_yandexid(browser):
     '''Тестирование регистрации через YandexID'''
     register = Register(browser)
     register.open()
+    time.sleep(5)
     register.wait_element(yandex_button_register)
     button = register.find(yandex_button_register)
     button.click()
+    time.sleep(5)
     register.wait_element(yandex_form)
     yandex_element = register.find(yandex_form)
     assert yandex_element is not None, 'Редирект на страницу входа YandexID не произошел'
