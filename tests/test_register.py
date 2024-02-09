@@ -4,6 +4,7 @@ import requests
 
 from fixtures.email_generation import generate_email, get_message
 from random import randint
+from selenium.common.exceptions import NoSuchElementException
 
 from page.register import (
     Register,
@@ -28,9 +29,9 @@ test_password = 'Password1!'
 
 
 def test_status_code():
-    '''Проверка ответа сервера == 200'''
-    response = requests.get('https://startupium.ru/create-account')
-    assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
+        '''Проверка ответа сервера == 200'''
+        response = requests.get('https://startupium.ru/create-account')
+        assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
 
 
 def test_open_site(browser):
@@ -108,15 +109,28 @@ def test_all_form_not_name(browser):
 
 
 def test_name_two_leng(browser):
-    '''Проверка поля имени меньше двух букв'''
+    '''Проверка поля имени меньше трех букв'''
     register_page = Register(browser)
     register_page.open()
     register_page.wait_element(name_form_path)
     element_email = register_page.find(name_form_path)
-    element_email.send_keys('Qa')
+    element_email.send_keys('QA')
     register_page.wait_element(warning_form_not_leng_name)
     message_error = register_page.find(warning_form_not_leng_name)
     assert message_error is not None, 'Сообщение не менее трех букв в имени не появилось'
+
+def test_name_three_leng(browser):
+    '''Проверка поля имени из трех букв'''
+    register_page = Register(browser)
+    register_page.open()
+    register_page.wait_element(name_form_path)
+    element_email = register_page.find(name_form_path)
+    element_email.send_keys('AQA')
+    try:
+        message = register_page.find(warning_form_not_leng_name)
+        assert message is None, 'Сообщение менее трех букв появилось'
+    except NoSuchElementException:
+        f'Сообщение менее трех букв в имени не появилось'
 
 
 def test_all_form_not_email(browser):
