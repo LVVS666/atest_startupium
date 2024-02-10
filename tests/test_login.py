@@ -7,7 +7,8 @@ from page.login import (
     button_class,
     test_email,
     test_password,
-    error_email, button_register, reset_password, email_form_reset, button_send_email_reset, complete_send_email_reset
+    error_email, button_register, reset_password, email_form_reset, button_send_email_reset, complete_send_email_reset,
+    menu_button, logout_button
 )
 from page.register import name_page
 
@@ -106,3 +107,26 @@ def test_reset_password(browser):
     login_page.wait_element(complete_send_email_reset)
     message = login_page.find(complete_send_email_reset)
     assert message is not None, 'Сообщение по сбросу пароля на почту не отправляется'
+
+def test_logout(browser):
+    '''Проверка выхода из профиля'''
+    login_page = Login(browser)
+    login_page.open()
+    login_page.wait_element(email_form)
+    email = login_page.find(email_form)
+    email.send_keys(test_email)
+    login_page.wait_element(password_form)
+    password = login_page.find(password_form)
+    password.send_keys(test_password)
+    login_page.wait_element(button_class)
+    button = login_page.find(button_class)
+    button.click()
+    login_page.wait_element(menu_button)
+    menu = login_page.find(menu_button)
+    menu.click()
+    login_page.wait_element(logout_button)
+    logout = login_page.find(logout_button)
+    logout.click()
+    url_logout = 'https://test.startupium.ru/registration'
+    assert url_logout in login_page.browser.current_url, 'Выход не произошел'
+
