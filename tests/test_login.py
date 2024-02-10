@@ -121,12 +121,14 @@ def test_logout(browser):
     login_page.wait_element(button_class)
     button = login_page.find(button_class)
     button.click()
+    time.sleep(5)
     login_page.wait_element(menu_button)
     menu = login_page.find(menu_button)
     menu.click()
     login_page.wait_element(logout_button)
     logout = login_page.find(logout_button)
     logout.click()
+    time.sleep(4)
     url_logout = 'https://test.startupium.ru/registration'
     assert url_logout in login_page.browser.current_url, 'Выход не произошел'
 
