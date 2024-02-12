@@ -1,4 +1,5 @@
 import time
+import requests
 
 from page.login import (
     Login,
@@ -11,6 +12,12 @@ from page.login import (
     menu_button, logout_button
 )
 from page.register import name_page
+
+
+def test_status_code():
+    '''Проверка ответа сервера == 200'''
+    response = requests.get('https://test.startupium.ru/login')
+    assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
 
 
 def test_login(browser):
@@ -121,15 +128,12 @@ def test_reset_password(browser):
 #     login_page.wait_element(button_class)
 #     button = login_page.find(button_class)
 #     button.click()
-#     time.sleep(2)
 #     login_page.wait_element(menu_button)
 #     menu = login_page.find(menu_button)
 #     menu.click()
-#     time.sleep(2)
 #     login_page.wait_element(logout_button)
 #     logout = login_page.find(logout_button)
 #     logout.click()
-#     time.sleep(5)
 #     url_logout = 'https://test.startupium.ru/registration'
 #     assert url_logout in login_page.browser.current_url, 'Выход не произошел'
 
