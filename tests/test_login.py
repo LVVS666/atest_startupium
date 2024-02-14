@@ -134,6 +134,6 @@ def test_reset_password(browser):
 #     login_page.wait_element(logout_button)
 #     logout = login_page.find(logout_button)
 #     logout.click()
-#     url_logout = 'https://test.startupium.ru/registration'
+#     url_logout = 'https://test.startupium.ru'
 #     assert url_logout in login_page.browser.current_url, 'Выход не произошел'
 
