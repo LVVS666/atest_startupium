@@ -6,7 +6,9 @@ from selenium.webdriver.common.by import By
 position_form = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/div/div[1]/div[2]/ul/li[2]/div/div/input')
 warrning_position_form = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/div/div[1]/div[2]/ul/li[2]/div/p')
 warrning_position_form_leng = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/div/div[1]/div[2]/ul/li[2]/div/p')
-
+profile_class = (By.CLASS_NAME, 'css-1qh42pp')
+title_step_2 = (By.CLASS_NAME, 'css-ecaa79')
+next_step_1 = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[2]/div[2]/button')
 
 class ProfileSetting(BasePage):
     '''Класс страницы настроек профиля'''
@@ -25,7 +27,4 @@ class ProfileSetting(BasePage):
         login_page.wait_element(button_class)
         button = login_page.find(button_class)
         button.click()
-
-
-
 

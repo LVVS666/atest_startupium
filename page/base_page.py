@@ -15,3 +15,4 @@ class BasePage:
         '''Ожидания появления элемента на странице'''
         WebDriverWait(self.browser, time).until(
             EC.presence_of_element_located(selector))
+
