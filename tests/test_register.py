@@ -210,8 +210,7 @@ def test_form_password_not_upper_leng(browser):
     element_password = register_page.find(password_form_path)
     element_password.send_keys('test_password1')
     register_page.wait_element(warning_form_password_lenght)
-    form_elements = register_page.find(warning_form_password_lenght)
-    assert form_elements is not None, 'Сообщение о не валидности пароля не появилось'
+    assert register_page.find(warning_form_password_lenght), 'Сообщение о не валидности пароля не появилось'
 
 
 def test_form_password_not_symbol(browser):
@@ -222,8 +221,7 @@ def test_form_password_not_symbol(browser):
     element_password = register_page.find(password_form_path)
     element_password.send_keys('Testpassword1')
     register_page.wait_element(warning_form_password_sybmol)
-    form_elements = register_page.find(warning_form_password_sybmol)
-    assert form_elements is not None, 'Сообщение о не валидности пароля не появилось'
+    assert register_page.find(warning_form_password_sybmol) is not None, 'Сообщение о не валидности пароля не появилось'
 
 
 def test_password_mismatch(browser):

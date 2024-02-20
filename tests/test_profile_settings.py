@@ -1,8 +1,9 @@
 import time
 import requests
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from page.profile_settings import ProfileSetting, position_form, warrning_position_form, warrning_position_form_leng, \
-    profile_class, next_step_1, title_step_2
+    profile_class, next_step_1, title_step_2, form_tag, added_tag, delete_tag, all_tags
 
 
 def test_warrning_form_positions(browser):
@@ -93,6 +94,82 @@ def test_button_next_step_role_off(browser):
     profile_page.wait_element(next_step_1)
     button_step = profile_page.find(next_step_1)
     assert button_step.get_attribute('disabled'), 'Кнопка следующего шага активна при невыполнение условий'
+
+
+def test_add_tag(browser):
+    '''Проверка возможности добавить новый навык и его успешное добавление'''
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    form.send_keys('AQA')
+    profile_page.wait_element(profile_class)
+    profile_activate = profile_page.find(profile_class)
+    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    profile_page.wait_element(form_tag)
+    tag_add = profile_page.find(form_tag)
+    tag_add.send_keys('Profession')
+    tag_add.send_keys(Keys.ENTER)
+    profile_page.wait_element(added_tag)
+    tag = profile_page.find(added_tag)
+    assert tag.text == 'Profession', 'Создался неверный навык'
+
+
+def test_delete_tag(browser):
+    '''Проверка возможности удаление навыка.'''
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    form.send_keys('AQA')
+    profile_page.wait_element(profile_class)
+    profile_activate = profile_page.find(profile_class)
+    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    profile_page.wait_element(form_tag)
+    tag_add = profile_page.find(form_tag)
+    tag_add.send_keys('Profession')
+    tag_add.send_keys(Keys.ENTER)
+    profile_page.wait_element(delete_tag)
+    profile_page.find(delete_tag).click()
+    try:
+        assert profile_page.find(added_tag) is None, 'Элемент не удалился'
+    except NoSuchElementException:
+        f'Элемент успешно удален'
+
+
+# def test_select_tag(browser):
+#     '''Проверка возможности выбрать навык и его успешное добавление'''
+#     profile_page = ProfileSetting(browser)
+#     profile_page.open()
+#     profile_page.wait_element(position_form)
+#     form = profile_page.find(position_form)
+#     form.send_keys('AQA')
+#     profile_page.wait_element(profile_class)
+#     profile_activate = profile_page.find(profile_class)
+#     profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+#     profile_page.wait_element(next_step_1)
+#     button_step = profile_page.find(next_step_1)
+#     profile_page.browser.execute_script('arguments[0].click()', button_step)
+#     profile_page.wait_element(form_tag)
+#     profile_page.find(form_tag).click()
+#     elements_tag = profile_page.wait_element(all_tags)
+#     elements_tag = elements_tag[2]
+#     assert elements_tag.click(), 'FFF'
+
+
+
+
+
+
+
+
+
 
 
 

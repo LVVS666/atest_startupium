@@ -13,8 +13,8 @@ warning_form_not_leng_name = (By.XPATH, "//p[contains(text(), 'Минимум 3 
 warning_form_path_name = (By.XPATH, "//p[contains(text(), 'Обязательно для заполнения')]")
 warning_form_path = (By.XPATH, "//span[contains(text(), 'Обязательно для заполнения')]")
 warning_form_password_number = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одной цифры.')]")
-warning_form_password_lenght = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одной прописной буквы.')]")
-warning_form_password_sybmol = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одного символа.')]")
+warning_form_password_lenght = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одной прописной латинской буквы.')]")
+warning_form_password_sybmol = (By.XPATH, "//span[contains(text(), 'Должен содержать не менее одного специального символа.')]")
 warning_form_not_password = (By.XPATH, "//span[contains(text(), 'Пароли не совпадают.')]")
 warning_not_register = (By.CSS_SELECTOR, 'p.css-3zhtyq')
 
