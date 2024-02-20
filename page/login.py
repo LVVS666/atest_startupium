@@ -2,7 +2,7 @@ from .base_page import BasePage
 from selenium.webdriver.common.by import By
 
 
-test_email = 'pupok777vasya@gmail.com'
+test_email = 'LoVasya33@yandex.ru'
 test_password = 'Password1!'
 email_form = (By.XPATH, '//input[@placeholder="Введите email"]')
 password_form = (By.XPATH, '//input[@placeholder="Введите пароль"]')
