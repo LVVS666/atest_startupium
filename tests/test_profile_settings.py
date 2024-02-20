@@ -1,9 +1,9 @@
 import time
-import requests
+
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from page.profile_settings import ProfileSetting, position_form, warrning_position_form, warrning_position_form_leng, \
-    profile_class, next_step_1, title_step_2, form_tag, added_tag, delete_tag, all_tags
+    profile_class, next_step_1, title_step_2, form_tag, added_tag, delete_tag, button_next, form_name_company
 
 
 def test_warrning_form_positions(browser):
@@ -143,34 +143,60 @@ def test_delete_tag(browser):
         f'Элемент успешно удален'
 
 
-# def test_select_tag(browser):
-#     '''Проверка возможности выбрать навык и его успешное добавление'''
-#     profile_page = ProfileSetting(browser)
-#     profile_page.open()
-#     profile_page.wait_element(position_form)
-#     form = profile_page.find(position_form)
-#     form.send_keys('AQA')
-#     profile_page.wait_element(profile_class)
-#     profile_activate = profile_page.find(profile_class)
-#     profile_page.browser.execute_script('arguments[0].click()', profile_activate)
-#     profile_page.wait_element(next_step_1)
-#     button_step = profile_page.find(next_step_1)
-#     profile_page.browser.execute_script('arguments[0].click()', button_step)
-#     profile_page.wait_element(form_tag)
-#     profile_page.find(form_tag).click()
-#     elements_tag = profile_page.wait_element(all_tags)
-#     elements_tag = elements_tag[2]
-#     profile_page.browser.execute_script('arguments[0].click()', elements_tag)
-#     time.sleep(2)
-#
+def test_next_button_actived(browser):
+    '''Проверка использования кнопки "Заполню потом" и активности кнопки следующий шаг'''
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    form.send_keys('AQA')
+    profile_page.wait_element(profile_class)
+    profile_activate = profile_page.find(profile_class)
+    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    profile_page.wait_element(button_next)
+    profile_page.find(button_next).click()
+    button_step = profile_page.find(next_step_1)
+    assert button_step.get_attribute('disabled') is None, 'Кнопка следующего шага неактивна при выполнение условий'
 
 
+def test_next_button_disabled(browser):
+    '''Проверка активности кнопки "Следующий шаг" при незаполненных условиях'''
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    form.send_keys('AQA')
+    profile_page.wait_element(profile_class)
+    profile_activate = profile_page.find(profile_class)
+    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    button_step = profile_page.find(next_step_1)
+    assert button_step.get_attribute('disabled'), 'Кнопка следующего шага активна при выполнение условий'
 
 
-
-
-
-
-
-
-
+def test_next_step(browser):
+    '''Проверка перехода к следующему шагу'''
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    form.send_keys('AQA')
+    profile_page.wait_element(profile_class)
+    profile_activate = profile_page.find(profile_class)
+    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    profile_page.wait_element(form_tag)
+    tag_add = profile_page.find(form_tag)
+    tag_add.send_keys('Profession')
+    tag_add.send_keys(Keys.ENTER)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    profile_page.wait_element(form_name_company)
+    assert profile_page.find(form_name_company), 'Переход к следующему шагу,с соблюдением условий,не произошел'
