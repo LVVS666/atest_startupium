@@ -160,9 +160,9 @@ def test_delete_tag(browser):
 #     profile_page.find(form_tag).click()
 #     elements_tag = profile_page.wait_element(all_tags)
 #     elements_tag = elements_tag[2]
-#     assert elements_tag.click(), 'FFF'
-
-
+#     profile_page.browser.execute_script('arguments[0].click()', elements_tag)
+#     time.sleep(2)
+#
 
 
 
