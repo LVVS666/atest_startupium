@@ -293,6 +293,7 @@ def test_repeat_user(browser):
 def test_open_message_to_email(browser):
     '''Проверка отправки сообщения на почту'''
     email = generate_email()
+    email = email[:-1]
     register_page = Register(browser)
     register_page.open()
     register_page.wait_element(name_form_path)

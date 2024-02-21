@@ -115,25 +115,25 @@ def test_reset_password(browser):
     message = login_page.find(complete_send_email_reset)
     assert message is not None, 'Сообщение по сбросу пароля на почту не отправляется'
 
-# def test_logout(browser):
-#     '''Проверка выхода из профиля'''
-#     login_page = Login(browser)
-#     login_page.open()
-#     login_page.wait_element(email_form)
-#     email = login_page.find(email_form)
-#     email.send_keys(test_email)
-#     login_page.wait_element(password_form)
-#     password = login_page.find(password_form)
-#     password.send_keys(test_password)
-#     login_page.wait_element(button_class)
-#     button = login_page.find(button_class)
-#     button.click()
-#     login_page.wait_element(menu_button)
-#     menu = login_page.find(menu_button)
-#     menu.click()
-#     login_page.wait_element(logout_button)
-#     logout = login_page.find(logout_button)
-#     logout.click()
-#     url_logout = 'https://test.startupium.ru'
-#     assert url_logout in login_page.browser.current_url, 'Выход не произошел'
+def test_logout(browser):
+    '''Проверка логаута и редиректа на главную страницу'''
+    login_page = Login(browser)
+    login_page.open()
+    login_page.wait_element(email_form)
+    email = login_page.find(email_form)
+    email.send_keys(test_email)
+    login_page.wait_element(password_form)
+    password = login_page.find(password_form)
+    password.send_keys(test_password)
+    login_page.wait_element(button_class)
+    button = login_page.find(button_class)
+    button.click()
+    login_page.wait_element(menu_button)
+    menu = login_page.find(menu_button)
+    menu.click()
+    login_page.wait_element(logout_button)
+    logout = login_page.find(logout_button)
+    logout.click()
+    url_logout = 'https://test.startupium.ru'
+    assert url_logout in login_page.browser.current_url, 'Выход не произошел'
 
