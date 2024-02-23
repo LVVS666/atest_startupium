@@ -14,6 +14,7 @@ added_tag = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/div/
 delete_tag = (By.CSS_SELECTOR, '#__next > div.css-1c4mae2 > main > div > div > div:nth-child(2) > div.css-0 > div > div > div.MuiBox-root.css-1atepvb > div.MuiBox-root.css-0 > div > div > svg > path')
 button_next = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div[2]/div[1]/div/div/div[1]/div[2]/div/span[1]/span[1]/input')
 form_name_company = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[1]/div[2]/div/input')
+add_work = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[5]/button')
 
 
 

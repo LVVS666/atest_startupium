@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from page.profile_settings import ProfileSetting, position_form, warrning_position_form, warrning_position_form_leng, \
-    profile_class, next_step_1, title_step_2, form_tag, added_tag, delete_tag, button_next, form_name_company
+    profile_class, next_step_1, title_step_2, form_tag, added_tag, delete_tag, button_next, form_name_company, add_work
 
 
 def test_warrning_form_positions(browser):
@@ -200,3 +200,49 @@ def test_next_step(browser):
     profile_page.browser.execute_script('arguments[0].click()', button_step)
     profile_page.wait_element(form_name_company)
     assert profile_page.find(form_name_company), 'Переход к следующему шагу,с соблюдением условий,не произошел'
+
+def test_delete_tag_delete(browser):
+    '''Проверка возможности удаление навыка кнопкой delete'''
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    form.send_keys('AQA')
+    profile_page.wait_element(profile_class)
+    profile_activate = profile_page.find(profile_class)
+    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    profile_page.wait_element(form_tag)
+    tag_add = profile_page.find(form_tag)
+    tag_add.send_keys('Profession')
+    tag_add.send_keys(Keys.ENTER)
+    tag_add = profile_page.find(form_tag)
+    tag_add.send_keys(Keys.DELETE)
+    tag_add.send_keys(Keys.DELETE)
+    try:
+        assert profile_page.find(added_tag), 'Элемент удалился'
+    except NoSuchElementException:
+        f'Элемент успешно удален'
+
+
+def test_action_button_added_work(browser):
+    '''Проверка активности добавления работы при незаполненных данных'''
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    form.send_keys('AQA')
+    profile_page.wait_element(profile_class)
+    profile_activate = profile_page.find(profile_class)
+    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    profile_page.wait_element(button_next)
+    profile_page.find(button_next).click()
+    profile_page.find(next_step_1).click()
+    profile_page.wait_element(add_work)
+    button_add_work = profile_page.find(add_work)
+    assert button_add_work.get_attribute('disabled'), 'Кнопка активна при не заполненных полях'
