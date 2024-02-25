@@ -15,8 +15,13 @@ delete_tag = (By.CSS_SELECTOR, '#__next > div.css-1c4mae2 > main > div > div > d
 button_next = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div[2]/div[1]/div/div/div[1]/div[2]/div/span[1]/span[1]/input')
 form_name_company = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[1]/div[2]/div/input')
 add_work = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[5]/button')
-
-
+button_next_3 = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[1]/div[1]/div/span[1]/span[1]/input')
+form_specialist = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[2]/div[2]/div/input')
+form_charge = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[3]/div[2]/div/textarea[1]')
+month_start = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[4]/div[1]/div/div[1]/div[1]/div/div/input')
+year_start = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[4]/div[1]/div/div[2]/div/div/input')
+checkbox_today = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/form/div/div[4]/div[2]/div[2]/span[1]/input')
+comany_add = (By.XPATH, '/html/body/div[1]/div[2]/main/div/div/div[2]/div[1]/div/div/div/div[1]/span[1]')
 
 class ProfileSetting(BasePage):
     '''Класс страницы настроек профиля'''
