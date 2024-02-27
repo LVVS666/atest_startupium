@@ -24,3 +24,4 @@ class Login(BasePage):
 
     def open(self):
         self.browser.get(url='https://test.startupium.ru/login')
+
