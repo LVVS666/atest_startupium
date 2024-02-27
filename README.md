@@ -39,3 +39,6 @@
 Если у вас возникнут проблемы или баги, пожалуйста, [создайте issue](https://github.com/lvvs666/atest_startupium/issues) в этом репозитории.
 
 
+## Ссылка на страницу Allure отчета
+https://lvvs666.github.io/atest_startupium/
+
