@@ -9,8 +9,9 @@ from page.login import (
     test_email,
     test_password,
     error_email, button_register, reset_password, email_form_reset, button_send_email_reset, complete_send_email_reset,
-    menu_button, logout_button, title_site
+    menu_button, logout_button
 )
+
 from page.register import name_page
 
 
@@ -134,7 +135,6 @@ def test_logout(browser):
     login_page.wait_element(logout_button)
     logout = login_page.find(logout_button)
     login_page.browser.execute_script('arguments[0].click()', logout)
-    login_page.wait_element(title_site)
     url_logout = 'https://test.startupium.ru'
     assert url_logout in login_page.browser.current_url, 'Выход не произошел'
 

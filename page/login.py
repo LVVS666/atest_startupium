@@ -2,7 +2,6 @@ from .base_page import BasePage
 from selenium.webdriver.common.by import By
 
 
-title_site = (By.XPATH, '//*[@id="__next"]/div[2]/main/section[1]/h1')
 test_email = 'LoVasya33@yandex.ru'
 test_password = 'Password1!'
 email_form = (By.XPATH, '//input[@placeholder="Введите email"]')
@@ -14,8 +13,8 @@ reset_password = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/div/a
 email_form_reset = (By.CSS_SELECTOR, 'input[type="email"]')
 button_send_email_reset = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/div/form/button')
 complete_send_email_reset = (By.CSS_SELECTOR, 'button.MuiButton-containedPrimary')
-menu_button = (By.CSS_SELECTOR, '#__next > div.css-1c4mae2 > header > div > div > div:nth-child(4) > div.MuiBox-root.css-ezgwml > button')
-logout_button = (By.XPATH, '//*[@id="__next"]/div[2]/header/div/div/div[2]/div[2]/ul/li[6]/a')
+menu_button = (By.XPATH, "//button[contains(@class, 'MuiButtonBase-root') and contains(@class, 'MuiIconButton-root') and contains(@class, 'MuiIconButton-sizeMedium')]")
+logout_button = (By.XPATH, "//a[contains(@class, 'MuiTypography-root') and contains(@class, 'MuiTypography-inherit') and contains(@class, 'MuiLink-root') and contains(@class, 'MuiLink-underlineAlways') and contains(@class, 'css-idcajh')]")
 
 class Login(BasePage):
 
