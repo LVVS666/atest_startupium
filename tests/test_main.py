@@ -1,16 +1,18 @@
 import time
-
+import allure
 import requests
 
 from page.login import email_form
 from page.main_site import MainSite, title, create_command, title_new_project, search_project, title_search_project, \
-    projects, users, title_search_users
+    projects, users, title_search_users, title_about, about
 
-
+@allure.feature('Общая проверка главной страницы')
+@allure.story('Проверка статус года главной страницы')
 def test_status_code():
     '''Проверка статус кода главной страницы'''
-    response = requests.get('https://test.startupium.ru/')
-    assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
+    with allure.step("Запрос отправлен, посмотрим код ответа"):
+        response = requests.get('https://test.startupium.ru/')
+        assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
 
 
 def test_main_title(browser):
@@ -77,3 +79,13 @@ def test_users(browser):
     page.browser.execute_script('arguments[0].click()', button_users)
     page.wait_element(title_search_users)
     assert page.find(title_search_users).text == 'Поиск пользователей', 'Редирект не произошел'
+
+def test_about_site(browser):
+    '''Проверка кнопки "О сайте" в хедере'''
+    page = MainSite(browser)
+    page.open()
+    page.wait_element(about)
+    button_about = page.find(about)
+    page.browser.execute_script('arguments[0].click()', button_about)
+    page.wait_element(title_about)
+    assert page.find(title_about).text in 'Startupium\nплатформа объединяющая\nлюдей', 'Редирект не произошел'

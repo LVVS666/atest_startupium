@@ -9,8 +9,10 @@ search_project = (By.XPATH, '//*[@id="__next"]/div[2]/main/section[1]/div/a[2]')
 title_new_project = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/h2')
 title_search_project = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/form/div/div[1]/div/span')
 title_search_users = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/form/div/div[1]/div/span')
+title_about = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div[1]/h1')
 projects = (By.XPATH, '//a[@href="/projects"]')
 users = (By.XPATH, '//a[@href="/users"]')
+about = (By.XPATH, '//a[@href="/about"]')
 
 
 class MainSite(BasePage):
