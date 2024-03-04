@@ -10,9 +10,14 @@ title_new_project = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/div/h2')
 title_search_project = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/form/div/div[1]/div/span')
 title_search_users = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div/form/div/div[1]/div/span')
 title_about = (By.XPATH, '//*[@id="__next"]/div[2]/main/div/div[1]/h1')
+title_message = (By.XPATH, '//*[@id="__next"]/div[2]/div/div/div/div[1]/div[1]/div[1]/p')
 projects = (By.XPATH, '//a[@href="/projects"]')
 users = (By.XPATH, '//a[@href="/users"]')
 about = (By.XPATH, '//a[@href="/about"]')
+button_message = (By.XPATH, '//*[@id="__next"]/div[2]/header/div/div/button[2]')
+notification = (By.XPATH, '//*[@id="__next"]/div[2]/header/div/div/button[1]')
+wind_notification = (By.XPATH, '//*[@id="__next"]/div[2]/header/div/div/div[1]/div')
+
 
 
 class MainSite(BasePage):

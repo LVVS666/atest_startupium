@@ -4,7 +4,8 @@ import requests
 
 from page.login import email_form
 from page.main_site import MainSite, title, create_command, title_new_project, search_project, title_search_project, \
-    projects, users, title_search_users, title_about, about
+    projects, users, title_search_users, title_about, about, button_message, title_message, notification, \
+    wind_notification
 
 
 @allure.feature('Общая проверка главной страницы')
@@ -97,3 +98,26 @@ def test_about_site(browser):
         page.browser.execute_script('arguments[0].click()', button_about)
         page.wait_element(title_about)
         assert page.find(title_about).text in 'Startupium\nплатформа объединяющая\nлюдей', 'Редирект не произошел'
+
+@allure.story('Проверка кнопки "Сообщения"')
+def test_message(browser):
+    page = MainSite(browser)
+    page.open_auth()
+    page.wait_element(button_message)
+    with allure.step('Переход в раздел "Сообщения"'):
+        button = page.find(button_message)
+        page.browser.execute_script('arguments[0].click()', button)
+        page.wait_element(title_message)
+        assert page.find(title_message).text == 'Сообщения', 'Редирект не произошел'
+
+
+@allure.story('Проверка кнопки "Уведомления"')
+def test_notification(browser):
+    page = MainSite(browser)
+    page.open_auth()
+    page.wait_element(notification)
+    with allure.step('Переход в раздел "Уведомления"'):
+        button_notification = page.find(notification)
+        page.browser.execute_script('arguments[0].click()', button_notification)
+        page.wait_element(wind_notification)
+        assert page.find(wind_notification), 'Окно уведомления не открывается'
