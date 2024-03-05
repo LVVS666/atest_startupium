@@ -8,7 +8,7 @@ from page.main_site import MainSite, title, create_command, title_new_project, s
     wind_notification
 
 
-@allure.feature('Общая проверка главной страницы')
+@allure.feature('Запрос HTTP')
 @allure.story('Проверка статус года главной страницы')
 def test_status_code():
     with allure.step("Запрос отправлен, посмотрим код ответа"):
@@ -16,6 +16,7 @@ def test_status_code():
         assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
 
 
+@allure.feature('Заголовок главной страницы')
 @allure.story('Проверка заголовка на главной странице')
 def test_main_title(browser):
     page = MainSite(browser)
@@ -26,6 +27,7 @@ def test_main_title(browser):
         assert title_text.text == 'Startupium', 'На главной странице неверный заголовок'
 
 
+@allure.feature('Раздел "Создать команду"')
 @allure.story('Проверка кнопки "Создать команду" без авторизации')
 def test_create_command_not_auth(browser):
     page = MainSite(browser)
@@ -39,6 +41,7 @@ def test_create_command_not_auth(browser):
         assert page.find(email_form), 'Редирект не произошел'
 
 
+@allure.feature('Раздел "Создать команду"')
 @allure.story('Проверка кнопки "Создать команду" c авторизацией')
 def test_create_command_auth(browser):
     page = MainSite(browser)
@@ -52,6 +55,7 @@ def test_create_command_auth(browser):
         assert page.find(title_new_project).text == 'Новый проект', 'Редирект не произошел'
 
 
+@allure.feature('Раздел "Найти команду"')
 @allure.story('Проверка кнопки "Найти команду"')
 def test_search_project(browser):
     page = MainSite(browser)
@@ -64,6 +68,7 @@ def test_search_project(browser):
         assert page.find(title_search_project).text == 'Поиск проектов', 'Редирект не произошел'
 
 
+@allure.feature('Разделы в хедере')
 @allure.story('Проверка кнопки "Проекты" в хедере')
 def test_projects(browser):
     page = MainSite(browser)
@@ -76,6 +81,7 @@ def test_projects(browser):
         assert page.find(title_search_project).text == 'Поиск проектов', 'Редирект не произошел'
 
 
+@allure.feature('Разделы в хедере')
 @allure.story('Проверка кнопки "Пользователи" в хедере')
 def test_users(browser):
     page = MainSite(browser)
@@ -88,6 +94,7 @@ def test_users(browser):
         assert page.find(title_search_users).text == 'Поиск пользователей', 'Редирект не произошел'
 
 
+@allure.feature('Разделы в хедере')
 @allure.story('Проверка кнопки "О сайте" в хедере')
 def test_about_site(browser):
     page = MainSite(browser)
@@ -99,6 +106,8 @@ def test_about_site(browser):
         page.wait_element(title_about)
         assert page.find(title_about).text in 'Startupium\nплатформа объединяющая\nлюдей', 'Редирект не произошел'
 
+
+@allure.feature('Разделы в хедере')
 @allure.story('Проверка кнопки "Сообщения"')
 def test_message(browser):
     page = MainSite(browser)
@@ -111,6 +120,7 @@ def test_message(browser):
         assert page.find(title_message).text == 'Сообщения', 'Редирект не произошел'
 
 
+@allure.feature('Разделы в хедере')
 @allure.story('Проверка кнопки "Уведомления"')
 def test_notification(browser):
     page = MainSite(browser)
