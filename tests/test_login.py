@@ -26,7 +26,7 @@ def test_login_status_code():
 
 
 @allure.feature('Логин с валидными данными')
-@allure.story('Проверка удачного логина при валидных данных')
+@allure.title('Проверка удачного логина при валидных данных')
 def test_login(browser):
     login_page = Login(browser)
     login_page.open()
@@ -46,7 +46,7 @@ def test_login(browser):
 
 
 @allure.feature('Логин с невалидными данными')
-@allure.story('Проверка логина при невалидном email')
+@allure.title('Проверка логина при невалидном email')
 def test_login_email_not_valid(browser):
     login_page = Login(browser)
     login_page.open()
@@ -67,7 +67,7 @@ def test_login_email_not_valid(browser):
 
 
 @allure.feature('Логин с невалидными данными')
-@allure.story('Проверка логина при невалидном пароле')
+@allure.title('Проверка логина при невалидном пароле')
 def test_login_password_not_valid(browser):
     login_page = Login(browser)
     login_page.open()
@@ -88,7 +88,7 @@ def test_login_password_not_valid(browser):
 
 
 @allure.feature('Работа кнопок на странице Логин')
-@allure.story('Проверка кнопки "Создание аккаунта"')
+@allure.title('Проверка кнопки "Создание аккаунта"')
 def test_redirect_register(browser):
     login_page = Login(browser)
     login_page.open()
@@ -103,7 +103,7 @@ def test_redirect_register(browser):
 
 
 @allure.feature('Сброс пароля')
-@allure.story('Проверка кнопки "Восстановить пароль"')
+@allure.title('Проверка кнопки "Восстановить пароль"')
 def test_button_reset_password(browser):
     login_page = Login(browser)
     login_page.open()
@@ -116,7 +116,7 @@ def test_button_reset_password(browser):
 
 
 @allure.feature('Сброс пароля')
-@allure.story('Проверка сброса пароля и отправка сообщения на почту.')
+@allure.title('Проверка сброса пароля и отправка сообщения на почту.')
 def test_reset_password(browser):
     login_page = Login(browser)
     login_page.open()
@@ -136,7 +136,7 @@ def test_reset_password(browser):
 
 
 @allure.feature("Логаут")
-@allure.story('Smoke - авторизация после отработка логаута и редирект на главную страницу.')
+@allure.title('Smoke - авторизация после отработка логаута и редирект на главную страницу.')
 def test_login_in_logout(browser):
     login_page = Login(browser)
     login_page.open()
