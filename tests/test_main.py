@@ -9,7 +9,7 @@ from page.main_site import MainSite, title, create_command, title_new_project, s
 
 
 @allure.feature('Запрос HTTP')
-@allure.story('Проверка статус года главной страницы')
+@allure.title('Проверка статус года главной страницы')
 def test_main_status_code():
     with allure.step("Запрос отправлен, проверка кода ответа"):
         response = requests.get('https://test.startupium.ru/')
@@ -17,7 +17,7 @@ def test_main_status_code():
 
 
 @allure.feature('Заголовок главной страницы')
-@allure.story('Проверка заголовка на главной странице')
+@allure.title('Проверка заголовка на главной странице')
 def test_main_title(browser):
     page = MainSite(browser)
     page.open()
@@ -28,7 +28,7 @@ def test_main_title(browser):
 
 
 @allure.feature('Раздел "Создать команду"')
-@allure.story('Проверка кнопки "Создать команду" без авторизации')
+@allure.title('Проверка кнопки "Создать команду" без авторизации')
 def test_create_command_not_auth(browser):
     page = MainSite(browser)
     page.open()
@@ -42,7 +42,7 @@ def test_create_command_not_auth(browser):
 
 
 @allure.feature('Раздел "Создать команду"')
-@allure.story('Проверка кнопки "Создать команду" c авторизацией')
+@allure.title('Проверка кнопки "Создать команду" c авторизацией')
 def test_create_command_auth(browser):
     page = MainSite(browser)
     page.open_auth()
@@ -56,7 +56,7 @@ def test_create_command_auth(browser):
 
 
 @allure.feature('Раздел "Найти команду"')
-@allure.story('Проверка кнопки "Найти команду"')
+@allure.title('Проверка кнопки "Найти команду"')
 def test_search_project(browser):
     page = MainSite(browser)
     page.open()
@@ -69,7 +69,7 @@ def test_search_project(browser):
 
 
 @allure.feature('Разделы в хедере')
-@allure.story('Проверка кнопки "Проекты" в хедере')
+@allure.title('Проверка кнопки "Проекты" в хедере')
 def test_projects(browser):
     page = MainSite(browser)
     page.open()
@@ -82,7 +82,7 @@ def test_projects(browser):
 
 
 @allure.feature('Разделы в хедере')
-@allure.story('Проверка кнопки "Пользователи" в хедере')
+@allure.title('Проверка кнопки "Пользователи" в хедере')
 def test_users(browser):
     page = MainSite(browser)
     page.open()
@@ -95,7 +95,7 @@ def test_users(browser):
 
 
 @allure.feature('Разделы в хедере')
-@allure.story('Проверка кнопки "О сайте" в хедере')
+@allure.title('Проверка кнопки "О сайте" в хедере')
 def test_about_site(browser):
     page = MainSite(browser)
     page.open()
@@ -108,7 +108,7 @@ def test_about_site(browser):
 
 
 @allure.feature('Разделы в хедере')
-@allure.story('Проверка кнопки "Сообщения"')
+@allure.title('Проверка кнопки "Сообщения"')
 def test_message(browser):
     page = MainSite(browser)
     page.open_auth()
@@ -121,7 +121,7 @@ def test_message(browser):
 
 
 @allure.feature('Разделы в хедере')
-@allure.story('Проверка кнопки "Уведомления"')
+@allure.title('Проверка кнопки "Уведомления"')
 def test_notification(browser):
     page = MainSite(browser)
     page.open_auth()
