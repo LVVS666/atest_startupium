@@ -1,5 +1,6 @@
 import time
 
+import allure
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from page.profile_settings import ProfileSetting, position_form, warrning_position_form, warrning_position_form_leng, \
@@ -7,94 +8,126 @@ from page.profile_settings import ProfileSetting, position_form, warrning_positi
     button_next_3, form_specialist, form_charge, month_start, year_start, checkbox_today, comany_add
 
 
+@allure.feature('Первый шаг редактирования профиля')
+@allure.story('Валидация поля должность')
+@allure.title('Уведомления об обязательно заполненном поле должность')
 def test_warrning_form_positions(browser):
-    '''Проверка уведомления об обязательно заполненном поле должность'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
     form = profile_page.find(position_form)
-    form.click()
-    profile_page.wait_element(warrning_position_form)
-    assert profile_page.find(warrning_position_form), 'Сообщение об обязательном поле не появилось'
+    with allure.step('Поле должность незаполненно.'):
+        form.click()
+    with allure.step('Проверка сообщения об незаполненном поле'):
+        profile_page.wait_element(warrning_position_form)
+        assert profile_page.find(warrning_position_form), 'Сообщение об обязательном поле не появилось'
 
 
+@allure.feature('Первый шаг редактирования профиля')
+@allure.story('Валидация поля должность')
+@allure.title('Уведомление меньше трех букв в поле должность при двух буквах в форме')
 def test_warrning_form_positions_count_leng_1(browser):
-    '''Проверка уведомления меньше трех букв в поле должность'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
     form = profile_page.find(position_form)
-    form.send_keys('QA')
-    profile_page.wait_element(warrning_position_form_leng)
-    assert profile_page.find(warrning_position_form_leng), 'Сообщение о содержание больше трех букв не появилось '
+    with allure.step('Заполнена одна буква в поле "Должность"'):
+        form.send_keys('Q')
+    with allure.step('Проверка сообщения "Количество символов в должности не мньше трех"'):
+        profile_page.wait_element(warrning_position_form_leng)
+        assert profile_page.find(warrning_position_form_leng), 'Сообщение о содержание больше трех букв не появилось '
 
 
+@allure.feature('Первый шаг редактирования профиля')
+@allure.story('Валидация поля должность')
+@allure.title('Уведомление меньше трех букв в поле должность при одной букве в форме')
 def test_warrning_form_positions_count_leng_2(browser):
     '''Проверка уведомления меньше трех букв в поле должность'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
     form = profile_page.find(position_form)
-    form.send_keys('QA')
-    profile_page.wait_element(warrning_position_form_leng)
-    assert profile_page.find(warrning_position_form_leng), 'Сообщение о содержание больше трех букв не появилось '
+    with allure.step('Заполнены две буквы в поле "Должность"'):
+        form.send_keys('QA')
+    with allure.step('Проверка сообщения "Количество символов в должности не мньше трех" '):
+        profile_page.wait_element(warrning_position_form_leng)
+        assert profile_page.find(warrning_position_form_leng), 'Сообщение о содержание больше трех букв не появилось '
 
 
+
+@allure.feature('Первый шаг редактирования профиля')
+@allure.story('Валидация поля должность')
+@allure.title('Отсутствие уведомления меньше трех букв в поле должность при валидных данных')
 def test_validation_form_positions(browser):
-    '''Проверка отсутствия уведомления меньше трех букв в поле должность при валидных данных'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
     form = profile_page.find(position_form)
-    form.send_keys('AQA')
+    with allure.step('Заполнены валидные данные в поле "Должность"'):
+        form.send_keys('AQA')
     try:
-        message = profile_page.find(warrning_position_form_leng)
-        assert message is None, 'Сообщение о содержание больше трех букв появилось'
+        with allure.step('Сообщение о "Содержание больше трех букв" не появилось'):
+            message = profile_page.find(warrning_position_form_leng)
+            assert message is None, 'Сообщение о содержание больше трех букв появилось'
     except NoSuchElementException:
         f'Элемент не найден'
 
 
+
+@allure.feature('Первый шаг редактирования профиля')
+@allure.title('Активность кнопки перехода на следующий шаг, при выбранной роли в проекте и валидных данных')
 def test_button_next_step_role_on(browser):
-    '''Проверка активности кнопки перехода на следующий шаг при выбранной роли в проекте и валидных данных '''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
     form = profile_page.find(position_form)
-    form.send_keys('AQA')
+    with allure.step('Заполнены валидные данные в поле "Должность"'):
+        form.send_keys('AQA')
     profile_page.wait_element(profile_class)
     profile_activate = profile_page.find(profile_class)
-    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    with allure.step('Выбрана роль в проекте'):
+        profile_page.browser.execute_script('arguments[0].click()', profile_activate)
     button_step = profile_page.find(next_step_1)
-    assert button_step.get_attribute('disabled') is None, 'Кнопка следующего шага активна при невыполнение условий'
+    with allure.step('Кнопка для перехода на следующий шаг активна'):
+        assert button_step.get_attribute('disabled') is None, 'Кнопка следующего шага неактивна при выполненых условях'
 
 
-def test_role_on(browser):
-    '''Проверка перехода на следующий шаг "Что вы умеете", при выбранной роли в проекте'''
+@allure.feature('Первый шаг редактирования профиля')
+@allure.title('Активность кнопки перехода на следующий шаг при не выбранной роли в проекте и валидных данных')
+def test_button_next_step_role_off(browser):
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
     form = profile_page.find(position_form)
-    form.send_keys('AQA')
+    with allure.step('Заполнены валидные данные в поле "Должность"'):
+        form.send_keys('AQA')
+    with allure.step('Роль на проекте не выбрана'):
+        profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    with allure.step('Кнопка для перехода на следующий шаг неактивна'):
+        assert button_step.get_attribute('disabled'), 'Кнопка следующего шага активна при невыполнение условий'
+
+
+@allure.feature('Первый шаг редактирования профиля')
+@allure.title('Переход на следующий шаг, при валидных данных и выбранной роли в проекте')
+def test_role_on(browser):
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    with allure.step('Заполнены валидные данные в поле "Должность"'):
+        form.send_keys('AQA')
     profile_page.wait_element(profile_class)
     profile_activate = profile_page.find(profile_class)
-    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    with allure.step('Выбрана роль в проекте'):
+        profile_page.browser.execute_script('arguments[0].click()', profile_activate)
     profile_page.wait_element(next_step_1)
     button_step = profile_page.find(next_step_1)
-    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    with allure.step('Переход на следующий шаг'):
+        profile_page.browser.execute_script('arguments[0].click()', button_step)
     profile_page.wait_element(title_step_2)
     assert profile_page.find(title_step_2), 'Переход к следующему шагу не произошел'
 
-
-def test_button_next_step_role_off(browser):
-    '''Проверка активности кнопки перехода на следующий шаг при не выбранной роли в проекте '''
-    profile_page = ProfileSetting(browser)
-    profile_page.open()
-    profile_page.wait_element(position_form)
-    form = profile_page.find(position_form)
-    form.send_keys('AQA')
-    profile_page.wait_element(next_step_1)
-    button_step = profile_page.find(next_step_1)
-    assert button_step.get_attribute('disabled'), 'Кнопка следующего шага активна при невыполнение условий'
 
 
 def test_add_tag(browser):
