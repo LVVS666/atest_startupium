@@ -11,10 +11,9 @@ from page.main_site import MainSite, title, create_command, title_new_project, s
 @allure.feature('Запрос HTTP')
 @allure.story('Проверка статус года главной страницы')
 def test_status_code():
-    with allure.step("Запрос отправлен, посмотрим код ответа"):
+    with allure.step("Запрос отправлен, проверка кода ответа"):
         response = requests.get('https://test.startupium.ru/')
         assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
-        allure.step('Код ответа 200')
 
 
 @allure.feature('Заголовок главной страницы')

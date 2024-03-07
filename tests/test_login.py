@@ -1,4 +1,6 @@
 import time
+
+import allure
 import requests
 
 from page.login import (
@@ -15,14 +17,17 @@ from page.login import (
 from page.register import name_page
 
 
+@allure.feature('Запрос HTTP')
+@allure.story('Проверка статус года страницы логина')
 def test_status_code():
-    '''Проверка ответа сервера == 200'''
-    response = requests.get('https://test.startupium.ru/login')
-    assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
+    with allure.step("Запрос отправлен, проверка кода ответа"):
+        response = requests.get('https://test.startupium.ru/login')
+        assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
 
 
+@allure.feature('Логин с валидными данными')
+@allure.story('Проверка удачного логина при валидных данных')
 def test_login(browser):
-    '''Проверка удачного логина при валидных данных'''
     login_page = Login(browser)
     login_page.open()
     login_page.wait_element(email_form)
@@ -35,26 +40,30 @@ def test_login(browser):
     button = login_page.find(button_class)
     button.click()
     time.sleep(5)
-    current_url = login_page.browser.current_url
-    assert current_url == 'https://test.startupium.ru/registration', 'Редирект не произошел'
+    with allure.step("Все поля заполнены валидными данными,ожидается редирект"):
+        current_url = login_page.browser.current_url
+        assert current_url == 'https://test.startupium.ru/registration', 'Редирект не произошел'
 
 
+@allure.feature('Логин с невалидными данными')
+@allure.story('Проверка логина при невалидном email')
 def test_login_email_not_valid(browser):
-    '''Проверка логина при невалидном email'''
     login_page = Login(browser)
     login_page.open()
     login_page.wait_element(email_form)
     email = login_page.find(email_form)
-    email.send_keys('test@gmail.com')
+    with allure.step("Введен невалидный email"):
+        email.send_keys('notvalide_test@gmail.com')
     login_page.wait_element(password_form)
     password = login_page.find(password_form)
     password.send_keys(test_password)
     login_page.wait_element(button_class)
     button = login_page.find(button_class)
     button.click()
-    login_page.wait_element(error_email)
-    error_message = login_page.find(error_email)
-    assert error_message is not None, 'Уведомления об ошибке не было'
+    with allure.step("Попытка входа при невалидном email и получение ошибки"):
+        login_page.wait_element(error_email)
+        error_message = login_page.find(error_email)
+        assert error_message is not None, 'Уведомления об ошибке не было'
 
 
 def test_login_password_not_valid(browser):
