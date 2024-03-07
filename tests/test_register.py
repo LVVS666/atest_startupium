@@ -28,7 +28,7 @@ test_email = f'test_mail{randint(0,10000)}@gmail.com'
 test_password = 'Password1!'
 
 
-def test_status_code():
+def test_registration_status_code():
         '''Проверка ответа сервера == 200'''
         response = requests.get('https://startupium.ru/create-account')
         assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
