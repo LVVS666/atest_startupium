@@ -18,7 +18,7 @@ from page.register import name_page
 
 
 @allure.feature('Запрос HTTP')
-@allure.story('Проверка статус года страницы логина')
+@allure.title('Проверка статус года страницы логина')
 def test_login_status_code():
     with allure.step("Запрос отправлен, проверка кода ответа"):
         response = requests.get('https://test.startupium.ru/login')
