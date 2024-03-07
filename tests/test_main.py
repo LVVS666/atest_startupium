@@ -14,6 +14,7 @@ def test_status_code():
     with allure.step("Запрос отправлен, посмотрим код ответа"):
         response = requests.get('https://test.startupium.ru/')
         assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
+        allure.step('Код ответа 200')
 
 
 @allure.feature('Заголовок главной страницы')
