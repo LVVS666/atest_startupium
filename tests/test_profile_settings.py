@@ -129,9 +129,10 @@ def test_role_on(browser):
     assert profile_page.find(title_step_2), 'Переход к следующему шагу не произошел'
 
 
-
+@allure.feature('Второй шаг редактирования профиля')
+@allure.story('Добавление навыков')
+@allure.title('Проверка возможности добавить новый навык и его успешное добавление')
 def test_add_tag(browser):
-    '''Проверка возможности добавить новый навык и его успешное добавление'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -145,15 +146,19 @@ def test_add_tag(browser):
     profile_page.browser.execute_script('arguments[0].click()', button_step)
     profile_page.wait_element(form_tag)
     tag_add = profile_page.find(form_tag)
-    tag_add.send_keys('Profession')
+    with allure.step('Добавить новый навык'):
+        tag_add.send_keys('Profession')
     tag_add.send_keys(Keys.ENTER)
     profile_page.wait_element(added_tag)
     tag = profile_page.find(added_tag)
-    assert tag.text == 'Profession', 'Создался неверный навык'
+    with allure.step('Навык отобразился в добавленных'):
+        assert tag.text == 'Profession', 'Создался неверный навык'
 
 
+@allure.feature('Второй шаг редактирования профиля')
+@allure.story('Добавление навыков')
+@allure.title('Проверка возможности удаление навыка.')
 def test_delete_tag(browser):
-    '''Проверка возможности удаление навыка.'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -167,18 +172,50 @@ def test_delete_tag(browser):
     profile_page.browser.execute_script('arguments[0].click()', button_step)
     profile_page.wait_element(form_tag)
     tag_add = profile_page.find(form_tag)
-    tag_add.send_keys('Profession')
+    with allure.step('Добавить новый навык'):
+        tag_add.send_keys('Profession')
     tag_add.send_keys(Keys.ENTER)
-    profile_page.wait_element(delete_tag)
+    with allure.step('Удалить новый навык'):
+        profile_page.wait_element(delete_tag)
     profile_page.find(delete_tag).click()
     try:
         assert profile_page.find(added_tag) is None, 'Элемент не удалился'
     except NoSuchElementException:
         f'Элемент успешно удален'
 
+@allure.feature('Второй шаг редактирования профиля')
+@allure.story('Добавление навыков')
+@allure.title('Проверка возможности удаление навыка кнопкой DELETE')
+def test_delete_tag_delete(browser):
+    profile_page = ProfileSetting(browser)
+    profile_page.open()
+    profile_page.wait_element(position_form)
+    form = profile_page.find(position_form)
+    form.send_keys('AQA')
+    profile_page.wait_element(profile_class)
+    profile_activate = profile_page.find(profile_class)
+    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
+    profile_page.wait_element(next_step_1)
+    button_step = profile_page.find(next_step_1)
+    profile_page.browser.execute_script('arguments[0].click()', button_step)
+    profile_page.wait_element(form_tag)
+    tag_add = profile_page.find(form_tag)
+    with allure.step('Добавить новый навык'):
+        tag_add.send_keys('Profession')
+    tag_add.send_keys(Keys.ENTER)
+    tag_add = profile_page.find(form_tag)
+    with allure.step('Удалить навык кнопкой DELETE'):
+        tag_add.send_keys(Keys.DELETE)
+        tag_add.send_keys(Keys.DELETE)
+    try:
+        assert profile_page.find(added_tag), 'Элемент удалился'
+    except NoSuchElementException:
+        f'Элемент успешно удален'
 
+
+@allure.feature('Второй шаг редактирования профиля')
+@allure.title('Проверка использования кнопки "Заполню потом" и активности кнопки следующий шаг')
 def test_next_button_actived(browser):
-    '''Проверка использования кнопки "Заполню потом" и активности кнопки следующий шаг'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -191,13 +228,15 @@ def test_next_button_actived(browser):
     button_step = profile_page.find(next_step_1)
     profile_page.browser.execute_script('arguments[0].click()', button_step)
     profile_page.wait_element(button_next)
-    profile_page.find(button_next).click()
+    with allure.step('Активировать кнопку "Заполню потом"'):
+        profile_page.find(button_next).click()
     button_step = profile_page.find(next_step_1)
     assert button_step.get_attribute('disabled') is None, 'Кнопка следующего шага неактивна при выполнение условий'
 
 
+@allure.feature('Второй шаг редактирования профиля')
+@allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных условиях')
 def test_next_button_disabled(browser):
-    '''Проверка активности кнопки "Следующий шаг" при незаполненных условиях'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -210,11 +249,13 @@ def test_next_button_disabled(browser):
     button_step = profile_page.find(next_step_1)
     profile_page.browser.execute_script('arguments[0].click()', button_step)
     button_step = profile_page.find(next_step_1)
-    assert button_step.get_attribute('disabled'), 'Кнопка следующего шага активна при выполнение условий'
+    with allure.step('Условия невыполнены - кнопка перехода на следующий шаг не активна'):
+        assert button_step.get_attribute('disabled'), 'Кнопка следующего шага активна при выполнение условий'
 
 
+@allure.feature('Второй шаг редактирования профиля')
+@allure.title('Проверка перехода к следующему шагу "Ваша Карьера"')
 def test_next_step(browser):
-    '''Проверка перехода к следующему шагу "Ваша Карьера"'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -228,41 +269,19 @@ def test_next_step(browser):
     profile_page.browser.execute_script('arguments[0].click()', button_step)
     profile_page.wait_element(form_tag)
     tag_add = profile_page.find(form_tag)
-    tag_add.send_keys('Profession')
+    with allure.step('Добавить новый навык'):
+        tag_add.send_keys('Profession')
     tag_add.send_keys(Keys.ENTER)
     button_step = profile_page.find(next_step_1)
     profile_page.browser.execute_script('arguments[0].click()', button_step)
     profile_page.wait_element(form_name_company)
-    assert profile_page.find(form_name_company), 'Переход к следующему шагу,с соблюдением условий,не произошел'
-
-def test_delete_tag_delete(browser):
-    '''Проверка возможности удаление навыка кнопкой delete'''
-    profile_page = ProfileSetting(browser)
-    profile_page.open()
-    profile_page.wait_element(position_form)
-    form = profile_page.find(position_form)
-    form.send_keys('AQA')
-    profile_page.wait_element(profile_class)
-    profile_activate = profile_page.find(profile_class)
-    profile_page.browser.execute_script('arguments[0].click()', profile_activate)
-    profile_page.wait_element(next_step_1)
-    button_step = profile_page.find(next_step_1)
-    profile_page.browser.execute_script('arguments[0].click()', button_step)
-    profile_page.wait_element(form_tag)
-    tag_add = profile_page.find(form_tag)
-    tag_add.send_keys('Profession')
-    tag_add.send_keys(Keys.ENTER)
-    tag_add = profile_page.find(form_tag)
-    tag_add.send_keys(Keys.DELETE)
-    tag_add.send_keys(Keys.DELETE)
-    try:
-        assert profile_page.find(added_tag), 'Элемент удалился'
-    except NoSuchElementException:
-        f'Элемент успешно удален'
+    with allure.step('Условия выполнены - происходит переход к следующему шагу'):
+        assert profile_page.find(form_name_company), 'Переход к следующему шагу,с соблюдением условий,не произошел'
 
 
+@allure.feature('Третий шаг редактирования профиля')
+@allure.title('Проверка активности добавления работы при незаполненных данных')
 def test_action_button_added_work(browser):
-    '''Проверка активности добавления работы при незаполненных данных'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -279,10 +298,13 @@ def test_action_button_added_work(browser):
     profile_page.find(next_step_1).click()
     profile_page.wait_element(add_work)
     button_add_work = profile_page.find(add_work)
-    assert button_add_work.get_attribute('disabled'), 'Кнопка активна при не заполненных полях'
+    with allure.step('Данные незаполнены - кнопка неактивна.'):
+        assert button_add_work.get_attribute('disabled'), 'Кнопка активна при не заполненных полях'
 
+
+@allure.feature('Третий шаг редактирования профиля')
+@allure.title('Проверка добавления работы при валидных данных')
 def test_added_work(browser):
-    '''Проверка добавления работы при валидных данных'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -299,33 +321,41 @@ def test_added_work(browser):
     profile_page.find(next_step_1).click()
     profile_page.wait_element(form_name_company)
     company = profile_page.find(form_name_company)
-    company.send_keys('Ozon')
+    with allure.step('Заполнено название компании'):
+        company.send_keys('Ozon')
     profile_page.wait_element(form_specialist)
     specialist = profile_page.find(form_specialist)
-    specialist.send_keys('QA')
+    with allure.step('Заполнена должность в компании'):
+        specialist.send_keys('QA')
     profile_page.wait_element(form_charge)
     charge = profile_page.find(form_charge)
-    charge.send_keys('Testing site and products')
+    with allure.step('Заполнены обязанности в компании'):
+        charge.send_keys('Testing site and products')
     profile_page.wait_element(month_start)
     month = profile_page.find(month_start)
-    month.send_keys('Январь')
+    with allure.step('Заполнен месяц начала'):
+        month.send_keys('Январь')
     month.send_keys(Keys.ENTER)
     profile_page.wait_element(year_start)
     year = profile_page.find(year_start)
-    year.send_keys('2020')
-    profile_page.wait_element(checkbox_today)
+    with allure.step('Заполнен год начала'):
+        year.send_keys('2020')
+    with allure.step('Дата окончания - По настоящее время'):
+        profile_page.wait_element(checkbox_today)
     today = profile_page.find(checkbox_today)
     profile_page.browser.execute_script('arguments[0].click()', today)
     profile_page.wait_element(add_work)
     add = profile_page.find(add_work)
-    profile_page.browser.execute_script('arguments[0].click()', add)
+    with allure.step('Добавления места работы'):
+        profile_page.browser.execute_script('arguments[0].click()', add)
     profile_page.wait_element(comany_add)
     assert profile_page.find(comany_add), 'Место работы не добавилось'
 
 
+
+@allure.feature('Третий шаг редактирования профиля')
+@allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных данных и без активной кнопки "заполню потом"')
 def test_action_button_next_step_not_active(browser):
-    '''Проверка активности кнопки "Следующий шаг"
-    при незаполненных данных и без активной кнопки "заполню потом"'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -342,11 +372,13 @@ def test_action_button_next_step_not_active(browser):
     profile_page.find(next_step_1).click()
     profile_page.wait_element(next_step_1)
     next_button = profile_page.find(next_step_1)
-    assert next_button.get_attribute('disabled'), 'Кнопка активна при незаполненных данных'
+    with allure.step('Данные незаполненны - кнопка неактивна'):
+        assert next_button.get_attribute('disabled'), 'Кнопка активна при незаполненных данных'
 
+
+@allure.feature('Третий шаг редактирования профиля')
+@allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных данных,но с активацией кнопки "заполню потом"')
 def test_action_button_next_step_active(browser):
-    '''Проверка активности кнопки "Следующий шаг"
-    при незаполненных данных ,но с активной кнопкой "заполню потом"'''
     profile_page = ProfileSetting(browser)
     profile_page.open()
     profile_page.wait_element(position_form)
@@ -363,7 +395,9 @@ def test_action_button_next_step_active(browser):
     profile_page.find(next_step_1).click()
     profile_page.wait_element(button_next_3)
     button_step_2 = profile_page.find(button_next_3)
-    profile_page.browser.execute_script('arguments[0].click()', button_step_2)
+    with allure.step('Активация кнопки "Заполню потом"'):
+        profile_page.browser.execute_script('arguments[0].click()', button_step_2)
     profile_page.wait_element(next_step_1)
     next_button = profile_page.find(next_step_1)
-    assert next_button.get_attribute('disabled') is None, 'Кнопка не активна при незаполненных данных'
+    with allure.step('Кнопка перехода на следующий шаг активна'):
+        assert next_button.get_attribute('disabled') is None, 'Кнопка не активна при незаполненных данных'
