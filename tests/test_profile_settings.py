@@ -8,6 +8,7 @@ from page.profile_settings import ProfileSetting, position_form, warrning_positi
     button_next_3, form_specialist, form_charge, month_start, year_start, checkbox_today, comany_add
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Первый шаг редактирования профиля')
 @allure.story('Валидация поля должность')
 @allure.title('Уведомления об обязательно заполненном поле должность')
@@ -23,6 +24,7 @@ def test_warrning_form_positions(browser):
         assert profile_page.find(warrning_position_form), 'Сообщение об обязательном поле не появилось'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Первый шаг редактирования профиля')
 @allure.story('Валидация поля должность')
 @allure.title('Уведомление меньше трех букв в поле должность при двух буквах в форме')
@@ -38,6 +40,7 @@ def test_warrning_form_positions_count_leng_1(browser):
         assert profile_page.find(warrning_position_form_leng), 'Сообщение о содержание больше трех букв не появилось '
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Первый шаг редактирования профиля')
 @allure.story('Валидация поля должность')
 @allure.title('Уведомление меньше трех букв в поле должность при одной букве в форме')
@@ -54,7 +57,7 @@ def test_warrning_form_positions_count_leng_2(browser):
         assert profile_page.find(warrning_position_form_leng), 'Сообщение о содержание больше трех букв не появилось '
 
 
-
+@allure.feature('Настройки профиля')
 @allure.feature('Первый шаг редактирования профиля')
 @allure.story('Валидация поля должность')
 @allure.title('Отсутствие уведомления меньше трех букв в поле должность при валидных данных')
@@ -73,7 +76,7 @@ def test_validation_form_positions(browser):
         f'Элемент не найден'
 
 
-
+@allure.feature('Настройки профиля')
 @allure.feature('Первый шаг редактирования профиля')
 @allure.title('Активность кнопки перехода на следующий шаг, при выбранной роли в проекте и валидных данных')
 def test_button_next_step_role_on(browser):
@@ -92,6 +95,7 @@ def test_button_next_step_role_on(browser):
         assert button_step.get_attribute('disabled') is None, 'Кнопка следующего шага неактивна при выполненых условях'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Первый шаг редактирования профиля')
 @allure.title('Активность кнопки перехода на следующий шаг при не выбранной роли в проекте и валидных данных')
 def test_button_next_step_role_off(browser):
@@ -108,6 +112,7 @@ def test_button_next_step_role_off(browser):
         assert button_step.get_attribute('disabled'), 'Кнопка следующего шага активна при невыполнение условий'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Первый шаг редактирования профиля')
 @allure.title('Переход на следующий шаг, при валидных данных и выбранной роли в проекте')
 def test_role_on(browser):
@@ -129,6 +134,7 @@ def test_role_on(browser):
     assert profile_page.find(title_step_2), 'Переход к следующему шагу не произошел'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Второй шаг редактирования профиля')
 @allure.story('Добавление навыков')
 @allure.title('Проверка возможности добавить новый навык и его успешное добавление')
@@ -155,6 +161,7 @@ def test_add_tag(browser):
         assert tag.text == 'Profession', 'Создался неверный навык'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Второй шаг редактирования профиля')
 @allure.story('Добавление навыков')
 @allure.title('Проверка возможности удаление навыка.')
@@ -183,6 +190,8 @@ def test_delete_tag(browser):
     except NoSuchElementException:
         f'Элемент успешно удален'
 
+
+@allure.feature('Настройки профиля')
 @allure.feature('Второй шаг редактирования профиля')
 @allure.story('Добавление навыков')
 @allure.title('Проверка возможности удаление навыка кнопкой DELETE')
@@ -213,6 +222,7 @@ def test_delete_tag_delete(browser):
         f'Элемент успешно удален'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Второй шаг редактирования профиля')
 @allure.title('Проверка использования кнопки "Заполню потом" и активности кнопки следующий шаг')
 def test_next_button_actived(browser):
@@ -234,6 +244,7 @@ def test_next_button_actived(browser):
     assert button_step.get_attribute('disabled') is None, 'Кнопка следующего шага неактивна при выполнение условий'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Второй шаг редактирования профиля')
 @allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных условиях')
 def test_next_button_disabled(browser):
@@ -253,6 +264,7 @@ def test_next_button_disabled(browser):
         assert button_step.get_attribute('disabled'), 'Кнопка следующего шага активна при выполнение условий'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Второй шаг редактирования профиля')
 @allure.title('Проверка перехода к следующему шагу "Ваша Карьера"')
 def test_next_step(browser):
@@ -279,6 +291,7 @@ def test_next_step(browser):
         assert profile_page.find(form_name_company), 'Переход к следующему шагу,с соблюдением условий,не произошел'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Третий шаг редактирования профиля')
 @allure.title('Проверка активности добавления работы при незаполненных данных')
 def test_action_button_added_work(browser):
@@ -302,6 +315,7 @@ def test_action_button_added_work(browser):
         assert button_add_work.get_attribute('disabled'), 'Кнопка активна при не заполненных полях'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Третий шаг редактирования профиля')
 @allure.title('Проверка добавления работы при валидных данных')
 def test_added_work(browser):
@@ -352,7 +366,7 @@ def test_added_work(browser):
     assert profile_page.find(comany_add), 'Место работы не добавилось'
 
 
-
+@allure.feature('Настройки профиля')
 @allure.feature('Третий шаг редактирования профиля')
 @allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных данных и без активной кнопки "заполню потом"')
 def test_action_button_next_step_not_active(browser):
@@ -376,6 +390,7 @@ def test_action_button_next_step_not_active(browser):
         assert next_button.get_attribute('disabled'), 'Кнопка активна при незаполненных данных'
 
 
+@allure.feature('Настройки профиля')
 @allure.feature('Третий шаг редактирования профиля')
 @allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных данных,но с активацией кнопки "заполню потом"')
 def test_action_button_next_step_active(browser):
