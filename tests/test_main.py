@@ -16,7 +16,7 @@ def test_main_status_code():
         assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
 
 
-@allure.feature('Заголовок главной страницы')
+@allure.feature('Главная страница')
 @allure.title('Проверка заголовка на главной странице')
 def test_main_title(browser):
     page = MainSite(browser)
@@ -27,7 +27,8 @@ def test_main_title(browser):
         assert title_text.text == 'Startupium', 'На главной странице неверный заголовок'
 
 
-@allure.feature('Раздел "Создать команду"')
+@allure.feature('Главная страница')
+@allure.story('Раздел "Создать команду"')
 @allure.title('Проверка кнопки "Создать команду" без авторизации')
 def test_create_command_not_auth(browser):
     page = MainSite(browser)
@@ -41,7 +42,8 @@ def test_create_command_not_auth(browser):
         assert page.find(email_form), 'Редирект не произошел'
 
 
-@allure.feature('Раздел "Создать команду"')
+@allure.feature('Главная страница')
+@allure.story('Раздел "Создать команду"')
 @allure.title('Проверка кнопки "Создать команду" c авторизацией')
 def test_create_command_auth(browser):
     page = MainSite(browser)
@@ -55,7 +57,8 @@ def test_create_command_auth(browser):
         assert page.find(title_new_project).text == 'Новый проект', 'Редирект не произошел'
 
 
-@allure.feature('Раздел "Найти команду"')
+@allure.feature('Главная страница')
+@allure.story('Раздел "Найти команду"')
 @allure.title('Проверка кнопки "Найти команду"')
 def test_search_project(browser):
     page = MainSite(browser)
@@ -66,6 +69,7 @@ def test_search_project(browser):
         button_search.click()
         page.wait_element(title_search_project)
         assert page.find(title_search_project).text == 'Поиск проектов', 'Редирект не произошел'
+
 
 
 @allure.feature('Разделы в хедере')

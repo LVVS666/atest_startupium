@@ -25,7 +25,8 @@ def test_login_status_code():
         assert response.status_code == 200, f'Ошибка получен статус: {response.status_code}'
 
 
-@allure.feature('Логин с валидными данными')
+@allure.feature('Авторизация пользователя')
+@allure.story('Логин с валидными данными')
 @allure.title('Проверка удачного логина при валидных данных')
 def test_login(browser):
     login_page = Login(browser)
@@ -45,7 +46,8 @@ def test_login(browser):
         assert current_url == 'https://test.startupium.ru/registration', 'Редирект не произошел'
 
 
-@allure.feature('Логин с невалидными данными')
+@allure.feature('Авторизация пользователя')
+@allure.story('Логин с невалидными данными')
 @allure.title('Проверка логина при невалидном email')
 def test_login_email_not_valid(browser):
     login_page = Login(browser)
@@ -66,7 +68,8 @@ def test_login_email_not_valid(browser):
         assert error_message is not None, 'Уведомления об ошибке не было'
 
 
-@allure.feature('Логин с невалидными данными')
+@allure.feature('Авторизация пользователя')
+@allure.story('Логин с невалидными данными')
 @allure.title('Проверка логина при невалидном пароле')
 def test_login_password_not_valid(browser):
     login_page = Login(browser)
@@ -87,7 +90,8 @@ def test_login_password_not_valid(browser):
         assert error_message is not None, 'Уведомления об ошибке не было'
 
 
-@allure.feature('Работа кнопок на странице Логин')
+@allure.feature('Авторизация пользователя')
+@allure.story('Работа кнопок на странице Логин')
 @allure.title('Проверка кнопки "Создание аккаунта"')
 def test_redirect_register(browser):
     login_page = Login(browser)
@@ -102,7 +106,8 @@ def test_redirect_register(browser):
 
 
 
-@allure.feature('Сброс пароля')
+@allure.feature('Авторизация пользователя')
+@allure.story('Сброс пароля')
 @allure.title('Проверка кнопки "Восстановить пароль"')
 def test_button_reset_password(browser):
     login_page = Login(browser)
@@ -115,7 +120,8 @@ def test_button_reset_password(browser):
         assert login_page.find(email_form_reset), 'Кнопка сброса пароля не работает.'
 
 
-@allure.feature('Сброс пароля')
+@allure.feature('Авторизация пользователя')
+@allure.story('Сброс пароля')
 @allure.title('Проверка сброса пароля и отправка сообщения на почту.')
 def test_reset_password(browser):
     login_page = Login(browser)
@@ -135,7 +141,8 @@ def test_reset_password(browser):
         assert message is not None, 'Сообщение по сбросу пароля на почту не отправляется'
 
 
-@allure.feature("Логаут")
+@allure.feature('Авторизация пользователя')
+@allure.story("Логаут")
 @allure.title('Smoke - авторизация после отработка логаута и редирект на главную страницу.')
 def test_login_in_logout(browser):
     login_page = Login(browser)
