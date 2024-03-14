@@ -28,7 +28,6 @@ test_email = f'test_mail{randint(0,10000)}@gmail.com'
 test_password = 'Password1!'
 
 
-
 @allure.feature('Запрос HTTP')
 @allure.title('Проверка статус года страницы Регистрации')
 def test_registration_status_code():
@@ -106,7 +105,6 @@ def test_search_button(browser):
         assert button is not None, 'Кнопка подтверждения регистрации отсутствует'
 
 
-
 @allure.feature('Регистрация')
 @allure.story('Невалидные данные и отработка ошибок')
 @allure.title('Проверка незаполненного поля имени')
@@ -144,6 +142,7 @@ def test_name_two_leng(browser):
     register_page.wait_element(warning_form_not_leng_name)
     message_error = register_page.find(warning_form_not_leng_name)
     assert message_error is not None, 'Сообщение не менее трех букв в имени не появилось'
+
 
 def test_name_three_leng(browser):
     '''Проверка поля имени из трех букв'''
