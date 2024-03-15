@@ -372,29 +372,36 @@ def test_repeat_user(browser):
     with allure.step('Уведомление об ошибке об уже зарегистрированном пользователе на введенный email'):
         assert repeat_register is not None, 'Повторная регистрация с зарегистрированным email удалась'
 
-
+@allure.feature('Регистрация')
+@allure.story('Валидные данные')
+@allure.step('Отправка сообщения на почту')
 def test_open_message_to_email(browser):
-    '''Проверка отправки сообщения на почту'''
     email = generate_email()
     email = email[:-1]
     register_page = Register(browser)
     register_page.open()
     register_page.wait_element(name_form_path)
     element_name = register_page.find(name_form_path)
-    element_name.send_keys(test_name)
+    with allure.step('Поле имени заполнено валидными данными'):
+        element_name.send_keys(test_name)
     register_page.wait_element(email_form_path)
     email_element = register_page.find(email_form_path)
-    email_element.send_keys(str(email))
+    with allure.step('Поле email заполнено валидными данными'):
+        email_element.send_keys(str(email))
     register_page.wait_element(password_form_path)
     password_element = register_page.find(password_form_path)
-    password_element.send_keys(test_password)
+    with allure.step('Поле пароля заполнено валидными данными'):
+        password_element.send_keys(test_password)
     register_page.wait_element(password_repeat_path)
     password_repeat_element = register_page.find(password_repeat_path)
-    password_repeat_element.send_keys(test_password)
+    with allure.step('Поле повторного пароля заполнено валидными данными'):
+        password_repeat_element.send_keys(test_password)
     register_page.wait_element(button_class)
     button = register_page.find(button_class)
-    button.click()
+    with allure.step('Завершение регистрации нажатием кнопки Зарегистрироваться'):
+        button.click()
     browser.quit()
-    message = get_message(email)
     time.sleep(10)
+    with allure.step('Проверка почты'):
+        message = get_message(email)
     assert message is not None, 'Сообщение не пришло на почту'
