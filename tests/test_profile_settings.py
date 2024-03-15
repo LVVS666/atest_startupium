@@ -9,8 +9,7 @@ from page.profile_settings import ProfileSetting, position_form, warrning_positi
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Первый шаг редактирования профиля')
-@allure.story('Валидация поля должность')
+@allure.story('Первый шаг редактирования профиля')
 @allure.title('Уведомления об обязательно заполненном поле должность')
 def test_warrning_form_positions(browser):
     profile_page = ProfileSetting(browser)
@@ -25,8 +24,7 @@ def test_warrning_form_positions(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Первый шаг редактирования профиля')
-@allure.story('Валидация поля должность')
+@allure.story('Первый шаг редактирования профиля')
 @allure.title('Уведомление меньше трех букв в поле должность при двух буквах в форме')
 def test_warrning_form_positions_count_leng_1(browser):
     profile_page = ProfileSetting(browser)
@@ -41,8 +39,7 @@ def test_warrning_form_positions_count_leng_1(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Первый шаг редактирования профиля')
-@allure.story('Валидация поля должность')
+@allure.story('Первый шаг редактирования профиля')
 @allure.title('Уведомление меньше трех букв в поле должность при одной букве в форме')
 def test_warrning_form_positions_count_leng_2(browser):
     '''Проверка уведомления меньше трех букв в поле должность'''
@@ -58,8 +55,7 @@ def test_warrning_form_positions_count_leng_2(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Первый шаг редактирования профиля')
-@allure.story('Валидация поля должность')
+@allure.story('Первый шаг редактирования профиля')
 @allure.title('Отсутствие уведомления меньше трех букв в поле должность при валидных данных')
 def test_validation_form_positions(browser):
     profile_page = ProfileSetting(browser)
@@ -77,7 +73,7 @@ def test_validation_form_positions(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Первый шаг редактирования профиля')
+@allure.story('Первый шаг редактирования профиля')
 @allure.title('Активность кнопки перехода на следующий шаг, при выбранной роли в проекте и валидных данных')
 def test_button_next_step_role_on(browser):
     profile_page = ProfileSetting(browser)
@@ -96,7 +92,7 @@ def test_button_next_step_role_on(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Первый шаг редактирования профиля')
+@allure.story('Первый шаг редактирования профиля')
 @allure.title('Активность кнопки перехода на следующий шаг при не выбранной роли в проекте и валидных данных')
 def test_button_next_step_role_off(browser):
     profile_page = ProfileSetting(browser)
@@ -113,7 +109,7 @@ def test_button_next_step_role_off(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Первый шаг редактирования профиля')
+@allure.story('Первый шаг редактирования профиля')
 @allure.title('Переход на следующий шаг, при валидных данных и выбранной роли в проекте')
 def test_role_on(browser):
     profile_page = ProfileSetting(browser)
@@ -135,8 +131,7 @@ def test_role_on(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Второй шаг редактирования профиля')
-@allure.story('Добавление навыков')
+@allure.story('Второй шаг редактирования профиля')
 @allure.title('Проверка возможности добавить новый навык и его успешное добавление')
 def test_add_tag(browser):
     profile_page = ProfileSetting(browser)
@@ -162,8 +157,7 @@ def test_add_tag(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Второй шаг редактирования профиля')
-@allure.story('Добавление навыков')
+@allure.story('Второй шаг редактирования профиля')
 @allure.title('Проверка возможности удаление навыка.')
 def test_delete_tag(browser):
     profile_page = ProfileSetting(browser)
@@ -192,8 +186,7 @@ def test_delete_tag(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Второй шаг редактирования профиля')
-@allure.story('Добавление навыков')
+@allure.story('Второй шаг редактирования профиля')
 @allure.title('Проверка возможности удаление навыка кнопкой DELETE')
 def test_delete_tag_delete(browser):
     profile_page = ProfileSetting(browser)
@@ -223,7 +216,7 @@ def test_delete_tag_delete(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Второй шаг редактирования профиля')
+@allure.story('Второй шаг редактирования профиля')
 @allure.title('Проверка использования кнопки "Заполню потом" и активности кнопки следующий шаг')
 def test_next_button_actived(browser):
     profile_page = ProfileSetting(browser)
@@ -245,7 +238,7 @@ def test_next_button_actived(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Второй шаг редактирования профиля')
+@allure.story('Второй шаг редактирования профиля')
 @allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных условиях')
 def test_next_button_disabled(browser):
     profile_page = ProfileSetting(browser)
@@ -265,7 +258,7 @@ def test_next_button_disabled(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Второй шаг редактирования профиля')
+@allure.story('Второй шаг редактирования профиля')
 @allure.title('Проверка перехода к следующему шагу "Ваша Карьера"')
 def test_next_step(browser):
     profile_page = ProfileSetting(browser)
@@ -292,7 +285,7 @@ def test_next_step(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Третий шаг редактирования профиля')
+@allure.story('Третий шаг редактирования профиля')
 @allure.title('Проверка активности добавления работы при незаполненных данных')
 def test_action_button_added_work(browser):
     profile_page = ProfileSetting(browser)
@@ -316,7 +309,7 @@ def test_action_button_added_work(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Третий шаг редактирования профиля')
+@allure.story('Третий шаг редактирования профиля')
 @allure.title('Проверка добавления работы при валидных данных')
 def test_added_work(browser):
     profile_page = ProfileSetting(browser)
@@ -367,7 +360,7 @@ def test_added_work(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Третий шаг редактирования профиля')
+@allure.story('Третий шаг редактирования профиля')
 @allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных данных и без активной кнопки "заполню потом"')
 def test_action_button_next_step_not_active(browser):
     profile_page = ProfileSetting(browser)
@@ -391,7 +384,7 @@ def test_action_button_next_step_not_active(browser):
 
 
 @allure.feature('Настройки профиля')
-@allure.feature('Третий шаг редактирования профиля')
+@allure.story('Третий шаг редактирования профиля')
 @allure.title('Проверка активности кнопки "Следующий шаг" при незаполненных данных,но с активацией кнопки "заполню потом"')
 def test_action_button_next_step_active(browser):
     profile_page = ProfileSetting(browser)
