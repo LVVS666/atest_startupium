@@ -374,7 +374,7 @@ def test_repeat_user(browser):
 
 @allure.feature('Регистрация')
 @allure.story('Валидные данные')
-@allure.step('Отправка сообщения на почту')
+@allure.title('Отправка сообщения на почту')
 def test_open_message_to_email(browser):
     email = generate_email()
     email = email[:-1]
