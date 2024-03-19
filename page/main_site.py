@@ -17,7 +17,13 @@ about = (By.XPATH, '//a[@href="/about"]')
 button_message = (By.XPATH, '//*[@id="__next"]/div[2]/header/div/div/button[2]')
 notification = (By.XPATH, '//*[@id="__next"]/div[2]/header/div/div/button[1]')
 wind_notification = (By.XPATH, '//*[@id="__next"]/div[2]/header/div/div/div[1]/div')
-
+footer_project = (By.XPATH, '//a[@class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-10xa3b9"]')
+footer_users = (By.XPATH, '//a[@class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-10xa3b9" and @href="/users"]')
+footer_about = (By.XPATH, '//a[@class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-10xa3b9" and @href="/about"]')
+footer_reviews = (By.XPATH, '//a[@class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-10xa3b9" and @href="/"]')
+form_reviews = (By.XPATH, '//textarea[@placeholder="Текст сообщения..."]')
+button_send_reviews = (By.XPATH, "//button[contains(@class, 'MuiButton-containedPrimary') and contains(@class, 'MuiButton-sizeMedium') and contains(@class, 'css-h75gqt')]")
+message_reviews = (By.XPATH, '//span[contains(text(), "Ваше сообщение успешно доставлено.")]')
 
 
 class MainSite(BasePage):

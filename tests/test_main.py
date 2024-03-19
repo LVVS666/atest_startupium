@@ -5,7 +5,8 @@ import requests
 from page.login import email_form
 from page.main_site import MainSite, title, create_command, title_new_project, search_project, title_search_project, \
     projects, users, title_search_users, title_about, about, button_message, title_message, notification, \
-    wind_notification
+    wind_notification, footer_about, footer_project, footer_users, footer_reviews, form_reviews, button_send_reviews, \
+    message_reviews
 
 
 @allure.feature('Запрос HTTP')
@@ -135,3 +136,89 @@ def test_notification(browser):
         page.browser.execute_script('arguments[0].click()', button_notification)
         page.wait_element(wind_notification)
         assert page.find(wind_notification), 'Окно уведомления не открывается'
+
+
+@allure.feature('Разделы в футоре')
+@allure.title('Проверка кнопки "Проекты"')
+def test_projects_footer(browser):
+    page = MainSite(browser)
+    page.open()
+    page.wait_element(footer_project)
+    with allure.step('Переход в раздел "Проекты"'):
+        button = page.find(footer_project)
+        page.browser.execute_script('arguments[0].click()', button)
+        page.wait_element(title_search_project)
+        assert page.find(title_search_project).text == 'Поиск проектов', 'Редирект не произошел'
+
+
+@allure.feature('Разделы в футоре')
+@allure.title('Проверка кнопки "Пользователи"')
+def test_users_footer(browser):
+    page = MainSite(browser)
+    page.open()
+    page.wait_element(footer_users)
+    with allure.step('Переход в раздел "Пользователи"'):
+        button = page.find(footer_users)
+        page.browser.execute_script('arguments[0].click()', button)
+        page.wait_element(title_search_users)
+        assert page.find(title_search_users).text == 'Поиск пользователей', 'Редирект не произошел'
+
+@allure.feature('Разделы в футоре')
+@allure.title('Проверка кнопки "О сайте"')
+def test_about_footer(browser):
+    page = MainSite(browser)
+    page.open()
+    page.wait_element(footer_about)
+    with allure.step('Переход в раздел "О сайте"'):
+        button = page.find(footer_about)
+        page.browser.execute_script('arguments[0].click()', button)
+        page.wait_element(title_about)
+        assert page.find(title_about).text in 'Startupium\nплатформа объединяющая\nлюдей', 'Редирект не произошел'
+
+
+@allure.feature('Разделы в футоре')
+@allure.story('Проверка формы "Отзывы и предложения"')
+@allure.title('Открытие формы обратной связи')
+def test_reviews_footer(browser):
+    page = MainSite(browser)
+    page.open()
+    page.wait_element(footer_reviews)
+    with allure.step('Открывается окно заполнения формы обратной связи'):
+        button = page.find(footer_reviews)
+        page.browser.execute_script('arguments[0].click()', button)
+        page.wait_element(form_reviews)
+        assert page.find(form_reviews), 'Форма не появилась'
+
+
+@allure.feature('Разделы в футоре')
+@allure.story('Проверка формы "Отзывы и предложения"')
+@allure.title('Активность кнопки отправки при незаполненной форме')
+def test_reviews_form_button_not_active(browser):
+    page = MainSite(browser)
+    page.open()
+    page.wait_element(footer_reviews)
+    button = page.find(footer_reviews)
+    page.browser.execute_script('arguments[0].click()', button)
+    page.wait_element(form_reviews)
+    button = page.find(button_send_reviews)
+    with allure.step('Кнопка неактивна при незаполненных данных'):
+        assert button.get_attribute('disabled'), 'Кнопка активна при незаполненных данных'
+
+@allure.feature('Разделы в футоре')
+@allure.story('Проверка формы "Отзывы и предложения"')
+@allure.title('Активность кнопки отправки при заполненной форме')
+def test_reviews_form_button_active(browser):
+    page = MainSite(browser)
+    page.open_auth()
+    page.wait_element(footer_reviews)
+    button = page.find(footer_reviews)
+    page.browser.execute_script('arguments[0].click()', button)
+    page.wait_element(form_reviews)
+    form = page.find(form_reviews)
+    with allure.step('Заполнить форму обратной связи'):
+        form.send_keys('test_message')
+    button_send = page.find(button_send_reviews)
+    button_send.click()
+    page.wait_element(message_reviews)
+    with allure.step('Отправить обратную связь'):
+        assert page.find(message_reviews), 'Сообщение обратной связи не отправлено'
