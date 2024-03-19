@@ -10,7 +10,7 @@ from page.main_site import MainSite, title, create_command, title_new_project, s
 
 
 @allure.feature('Запрос HTTP')
-@allure.title('Проверка статус года главной страницы')
+@allure.title('Проверка статус года "Главной страницы"')
 def test_main_status_code():
     with allure.step("Запрос отправлен, проверка кода ответа"):
         response = requests.get('https://test.startupium.ru/')

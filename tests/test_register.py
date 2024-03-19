@@ -29,7 +29,7 @@ test_password = 'Password1!'
 
 
 @allure.feature('Запрос HTTP')
-@allure.title('Проверка статус года страницы Регистрации')
+@allure.title('Проверка статус года страницы "Регистрации"')
 def test_registration_status_code():
     with allure.step("Запрос отправлен, проверка кода ответа"):
         response = requests.get('https://startupium.ru/create-account')
