@@ -40,7 +40,7 @@ def test_login(browser):
     login_page.wait_element(button_class)
     button = login_page.find(button_class)
     button.click()
-    time.sleep(5)
+    time.sleep(2)
     with allure.step("Все поля заполнены валидными данными,ожидается редирект"):
         current_url = login_page.browser.current_url
         assert current_url == 'https://test.startupium.ru/registration', 'Редирект не произошел'

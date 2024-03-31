@@ -28,6 +28,7 @@ message_reviews = (By.XPATH, '//span[contains(text(), "Ваше сообщени
 
 
 class MainSite(BasePage):
+    '''Класс для главной страницы'''
     def __init__(self, browser):
         super().__init__(browser)
 

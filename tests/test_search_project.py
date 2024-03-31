@@ -4,7 +4,7 @@ import requests
 
 from selenium.webdriver.common.keys import Keys
 from page.search_projects import SearchProjectsSite, form_search, button_search, name_project, method_search, \
-    method_name, form_name_search, main_page
+    method_name, main_page, method_description, filters
 
 
 @allure.feature('Запрос HTTP')
@@ -30,6 +30,7 @@ def test_search_projects_at_tag(browser):
     page_projects.wait_element(name_project)
     assert page_projects.find(name_project), 'Поиск по тэгу отработал некорректно'
 
+
 @allure.feature('Поиск проектов')
 @allure.title('Поиск по названию ')
 def test_search_projects_at_name(browser):
@@ -48,3 +49,36 @@ def test_search_projects_at_name(browser):
     name.send_keys(Keys.ENTER)
     page_projects.wait_element(name_project)
     assert page_projects.find(name_project), 'Поиск по названию не нашел элемент запроса'
+
+
+@allure.feature('Поиск проектов')
+@allure.title('Поиск по описанию ')
+def test_search_projects_at_descriptions(browser):
+    page_projects = SearchProjectsSite(browser)
+    page_projects.open()
+    page_projects.wait_element(form_search)
+    page_projects.wait_element(method_search)
+    page_projects.find(method_search).click()
+    page_projects.wait_element(method_name)
+    page_projects.find(method_name).click()
+    page_projects.find(method_description).click()
+    page_projects.wait_element(main_page)
+    time.sleep(2)
+    page_projects.find(main_page).click()
+    name = page_projects.find(form_search)
+    with allure.step('Ввести в поисковую строку название проекта "TEST"'):
+        name.send_keys('Описания для теста')
+    name.send_keys(Keys.ENTER)
+    page_projects.wait_element(name_project)
+    assert page_projects.find(name_project), 'Поиск по описанию не нашел элемент запроса'
+
+# @allure.feature('Поиск проектов')
+# @allure.story('Фильтрация')
+# @allure.title('Поиск по стране ')
+# def test_filter_search_it_country(browser):
+#     page_projects = SearchProjectsSite(browser)
+#     page_projects.open()
+#     page_projects.wait_element(form_search)
+#     page_projects.wait_element(filters)
+#     page_projects.find(filters).click()
+#     time.sleep(2)
