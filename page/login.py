@@ -17,7 +17,7 @@ menu_button = (By.XPATH, "//button[contains(@class, 'MuiButtonBase-root') and co
 logout_button = (By.XPATH, "//a[contains(@class, 'MuiTypography-root') and contains(@class, 'MuiTypography-inherit') and contains(@class, 'MuiLink-root') and contains(@class, 'MuiLink-underlineAlways') and contains(@class, 'css-idcajh')]")
 
 class Login(BasePage):
-
+'''Класс Логина и Логаут'''
     def __init__(self, browser):
         super().__init__(browser)
 
